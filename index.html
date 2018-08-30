@@ -1,0 +1,139 @@
+<html>
+<header>
+    <link rel="stylesheet" href="./css/custom.css">
+
+
+    <script src="./js/libs/jquey-3.2.1.slim.min.js" type="application/javascript"></script>
+    <script src="./js/libs/popper.js" type="application/javascript"></script>
+    <script src="./js/libs/bootstrap.min.js" type="application/javascript"></script>
+    <script src="./js/libs/waveletencoding.js" type="application/javascript"></script>
+    <script src="./js/libs/predictivecoding.js" type="application/javascript"></script>
+    <script src="./js/libs/run_length.js" type="application/javascript"></script>
+    <script src="./js/libs/lzw.js" type="application/javascript"></script>
+    <script src="./js/libs/d3.js" type="application/javascript"></script>
+    <script src="./js/libs/canvas_editor.js" type="application/javascript"></script>
+
+
+    <link rel="stylesheet" href="./css/libs/bootstrap.css">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <script src="./js/main.js" type="application/javascript"></script>
+    <script src="./js/string.js" type="application/javascript"></script>
+    <script src="./js/histogram.js" type="application/javascript"></script>
+    <script src="./js/utils.js" type="application/javascript"></script>
+    <script src="./js/filters.js" type="application/javascript"></script>
+
+
+</header>
+
+<head>
+    <!-- Plot.js -->
+    <script src="./js/libs/plot.js"></script>
+</head>
+
+<body>
+
+
+<div class="row">
+    <div id="mid" class="col-md-6">
+        <input id="input_photo" class="btn btn-primary " type="file" onchange="(previewFile(photo))">
+        <br>
+        <canvas width="100" height="100" id="canvas"></canvas>
+        <canvas width="100" height="100" id="canvasOri"></canvas>
+        <canvas width="100" height="100" id="canvasOriBack"></canvas>
+        <canvas width="100" height="100" id="canvasAlter"></canvas>
+        <img src=""/>
+        <img id="imgOri" src=""/>
+        <img id="imgOriBack" src=""/>
+    </div>
+    <div class="col-md-6">
+        <div id="tam" class="jumbotron">
+            <div class="container">
+                    <div class="tab-content ">
+                        <div class="tab-pane active" id="1">
+                            <p></p>
+
+                            <p>
+
+                                <button class="btn btn-primary" onclick='photo.negative()'>Negativo</button>
+                            </p>
+
+                            <p>
+                                <input id="constantLog" type="text" placeholder="Constante Log">
+                                <button class="btn btn-primary"
+                                        onclick='photo.logTransformation(document.getElementById("constantLog").value)'>
+                                    Transformação Log
+                                </button>
+                            </p>
+
+                            <p>
+                                <input id="constantGamma" placeholder="Constante Gamma">
+                                <input id="gamma" placeholder="Gama">
+                                <button class="btn btn-primary"
+                                        onclick='photo.gamma(document.getElementById("constantGamma").value,document.getElementById("gamma").value)'>
+                                    Gama
+                                </button>
+                            </p>
+
+                            <p>
+                                <input id="twopoints" placeholder="(a,b),(c,d) com a < c">
+                                <button class="btn btn-primary"
+                                        onclick='photo.piecewise(document.getElementById("twopoints").value)'>Linear
+                                </button>
+                            </p>
+
+                            <p>
+                                <select id='layerOptions'>
+                                    <option value="1">Primeira</option>
+                                    <option value="2">Segunda</option>
+                                    <option value="3">Terceira</option>
+                                    <option value="4">Quarta</option>
+                                    <option value="5">Quinta</option>
+                                    <option value="6">Sexta</option>
+                                    <option value="7">Sétima</option>
+                                    <option value="8">Oitava</option>
+                                </select>
+                                <button class="btn btn-primary"
+                                        onclick='photo.layer(document.getElementById("layerOptions").value)'>Mostrar
+                                    camada
+                                </button>
+                            </p>
+
+                            <div class="tab-pane" id="2">
+                                <p>
+                                    <button class="btn btn-primary" onclick='hist.histogram()'>Histograma</button>
+                                </p>
+                                <div id="histogramDiv"></div>
+                                <hr>
+
+                                <button class="btn btn-primary" onclick='hist.histogramGlobalEq()'>Equalização Global
+                                </button>
+
+                                <div id="histEquaDiv"></div>
+                                <hr>
+
+                                <button class="btn btn-primary" onclick='hist.histogramLocalEq()'>Equalização Local
+                                </button>
+
+                                <div id="histLocalEquaDiv"></div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<hr>
+
+</body>
+
+</html>
