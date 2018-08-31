@@ -32,17 +32,16 @@ function Histogram() {
     this.histogram = () => {
         let aa = document.getElementById("histogramDiv");
         
-        preview = hist.getPreview();
-        ctx = canvas.getContext('2d');
-        ctx.drawImage(hist.getPreview(), 0, 0, preview.width, preview.height);
-        let imgData = ctx.getImageData(0, 0, preview.width, preview.height);
-        hist.makeHistogram(imgData, "histogramDiv");
-
-
+        
         if (aa.style.display !== 'none') {
             aa.style.display = 'none';
         }
         else {
+            preview = hist.getPreview();
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(hist.getPreview(), 0, 0, preview.width, preview.height);
+        let imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+        hist.makeHistogram(imgData, "histogramDiv");
             aa.style.display = 'block';
         }
     }
@@ -67,7 +66,13 @@ function Histogram() {
     this.histogramGlobalEq = () => {
         let bb = document.getElementById("histEquaDiv");    
 
-        preview = hist.getPreview();
+
+        if (bb.style.display !== 'none') {
+            bb.style.display = 'none';
+        }
+        else {
+
+            preview = hist.getPreview();
         ctx = canvas.getContext('2d');
         ctx.drawImage(hist.getPreview(), 0, 0, preview.width, preview.height);
         let imgData = ctx.getImageData(0, 0, preview.width, preview.height);
@@ -85,10 +90,6 @@ function Histogram() {
         ctx.putImageData(imgData, 0, 0);
         hist.makeHistogram(imgData, "histEquaDiv");
 
-        if (bb.style.display !== 'none') {
-            bb.style.display = 'none';
-        }
-        else {
             bb.style.display = 'block';
         }
     }
@@ -130,7 +131,15 @@ function Histogram() {
     this.histogramLocalEq = function () {
         let cc = document.getElementById("histLocalEquaDiv"); 
 
-        preview = hist.getPreview();
+        
+
+        if (cc.style.display !== 'none') {
+            cc.style.display = 'none';
+        }
+        else {
+
+
+            preview = hist.getPreview();
         ctx = canvas.getContext('2d');
         ctx.drawImage(hist.getPreview(), 0, 0, preview.width, preview.height);
         let imgData = ctx.getImageData(0, 0, preview.width, preview.height);
@@ -159,10 +168,7 @@ function Histogram() {
         ctx.putImageData(imgData, 0, 0);
         hist.makeHistogram(imgData, "histLocalEquaDiv");
 
-        if (cc.style.display !== 'none') {
-            cc.style.display = 'none';
-        }
-        else {
+            
             cc.style.display = 'block';
         }
     }
