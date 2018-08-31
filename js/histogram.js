@@ -23,16 +23,28 @@ function Histogram() {
             }
         }
         let data = [traceG];
-        let layout = {barmode: "overlay"};
+        let layout = {barmode: "overlay",
+        width: 500,
+        height: 400};
         Plotly.newPlot(div, data, layout);
     }
 
     this.histogram = () => {
+        let aa = document.getElementById("histogramDiv");
+        
         preview = hist.getPreview();
         ctx = canvas.getContext('2d');
         ctx.drawImage(hist.getPreview(), 0, 0, preview.width, preview.height);
         let imgData = ctx.getImageData(0, 0, preview.width, preview.height);
         hist.makeHistogram(imgData, "histogramDiv");
+
+
+        if (aa.style.display !== 'none') {
+            aa.style.display = 'none';
+        }
+        else {
+            aa.style.display = 'block';
+        }
     }
 
     this.calculateMin = (min, cdf) => {
@@ -53,6 +65,8 @@ function Histogram() {
     }
 
     this.histogramGlobalEq = () => {
+        let bb = document.getElementById("histEquaDiv");    
+
         preview = hist.getPreview();
         ctx = canvas.getContext('2d');
         ctx.drawImage(hist.getPreview(), 0, 0, preview.width, preview.height);
@@ -70,9 +84,18 @@ function Histogram() {
         }
         ctx.putImageData(imgData, 0, 0);
         hist.makeHistogram(imgData, "histEquaDiv");
+
+        if (bb.style.display !== 'none') {
+            bb.style.display = 'none';
+        }
+        else {
+            bb.style.display = 'block';
+        }
     }
 
     this.localEqualization = (x, y, matrix) => {
+
+
         let auxMatrix = new Array(3);
         for (let i = 0; i < 3; i++) {
             auxMatrix[i] = new Array(3);
@@ -105,6 +128,8 @@ function Histogram() {
     }
 
     this.histogramLocalEq = function () {
+        let cc = document.getElementById("histLocalEquaDiv"); 
+
         preview = hist.getPreview();
         ctx = canvas.getContext('2d');
         ctx.drawImage(hist.getPreview(), 0, 0, preview.width, preview.height);
@@ -132,7 +157,14 @@ function Histogram() {
             }
         }
         ctx.putImageData(imgData, 0, 0);
-        hist.makeHistogram(imgData, "histLocalEquaDiv")
+        hist.makeHistogram(imgData, "histLocalEquaDiv");
+
+        if (cc.style.display !== 'none') {
+            cc.style.display = 'none';
+        }
+        else {
+            cc.style.display = 'block';
+        }
     }
 
 

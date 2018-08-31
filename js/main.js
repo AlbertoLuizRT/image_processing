@@ -7,6 +7,13 @@ function previewFile(photo) {
     var reader = new FileReader();
     var readerOri = new FileReader();
 
+    var zz = document.getElementById("histogramDiv");
+    var yy = document.getElementById("histEquaDiv");
+    var xx = document.getElementById("histLocalEquaDiv");
+    zz.style.display = 'none';
+    yy.style.display = 'none';
+    xx.style.display = 'none';
+
     reader.onloadend = () => {
         preview = document.createElement('img');
         preview.src = reader.result;
