@@ -9,6 +9,151 @@ function PhotoShop() {
         hist.set(preview);
     }
 
+    this.convolution = (matrix) =>{
+        if (matrix) {
+            
+            if (matrix.length >= 23) {
+                
+                let a = parseInt(matrix.split(',')[0].split('(')[1], 10);//(a,b),(a,b)
+                let b = parseInt(matrix.split(',')[1].split(',')[0], 10);
+                let c = parseInt(matrix.split(',')[2].split(')')[0], 10);
+
+                let d = parseInt(matrix.split(',')[3].split('(')[1], 10);
+                let e = parseInt(matrix.split(',')[4].split(',')[0], 10);
+                let f = parseInt(matrix.split(',')[5].split(')')[0], 10);
+
+                let g = parseInt(matrix.split(',')[6].split('(')[1], 10);
+                let h = parseInt(matrix.split(',')[7].split(',')[0], 10);
+                let i = parseInt(matrix.split(',')[8].split(')')[0], 10);
+                
+                
+                
+                preview = photo.getPreview();
+                ctx = canvas.getContext('2d');
+                ctx.drawImage(preview, 0, 0, preview.width, preview.height);
+                let imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+                let imageWidth = preview.width;
+                let imageHeight = preview.height;
+
+
+                let original = new Array();
+
+                for(var y = 0; y < imageHeight; y++) {
+                  // loop through each column
+                    for(var x = 0; x < imageWidth; x++) {
+                        original[((imageWidth * y) + x)*4] = imgData.data[((imageWidth * y) + x)*4];
+                        original[((imageWidth * y) + x)*4+1] = imgData.data[((imageWidth * y) + x)*4+1];
+                        original[((imageWidth * y) + x)*4+2] = imgData.data[((imageWidth * y) + x)*4+2];
+                        original[((imageWidth * y) + x)*4+3] = imgData.data[((imageWidth * y) + x)*4+3];
+
+                    }
+                }
+                
+                    console.log(original);
+                    let suamae = original[((imageWidth * (20)) +20) *4]*a;
+                    console.log(suamae);
+                    
+                
+                    
+                for(var y = 0; y < imageHeight; y++) {
+                    
+                  // loop through each column
+                    for(var x = 0; x < imageWidth; x++) {
+                        //red
+                        let aar = original[((imageWidth * (y-1)) + (x-1)) *4]*a|| 0;
+                        let bbr = original[((imageWidth * (y-1)) +   x)   *4]*b|| 0;
+                        let ccr = original[((imageWidth * (y-1)) + (x+1)) *4]*c|| 0;
+                        let ddr = original[((imageWidth * y)     + (x-1)) *4]*d|| 0;
+                        let eer = original[((imageWidth * y)     + x)     *4]*e|| 0;
+                        let ffr = original[((imageWidth * y)     + (x+1)) *4]*f|| 0;
+                        let ggr = original[((imageWidth * (y+1)) + (x-1)) *4]*g|| 0;
+                        let hhr = original[((imageWidth * (y+1)) + x)     *4]*h|| 0;
+                        let iir = original[((imageWidth * (y+1)) + (x+1)) *4]*i|| 0;
+
+                        //green
+                        let aag = original[((imageWidth * (y-1)) + (x-1)) *4+1]*a|| 0;
+                        let bbg = original[((imageWidth * (y-1)) +   x)   *4+1]*b|| 0;
+                        let ccg = original[((imageWidth * (y-1)) + (x+1)) *4+1]*c|| 0;
+                        let ddg = original[((imageWidth * y)     + (x-1)) *4+1]*d|| 0;
+                        let eeg = original[((imageWidth * y)     +   x)   *4+1]*e|| 0;
+                        let ffg = original[((imageWidth * y)     + (x+1)) *4+1]*f|| 0;
+                        let ggg = original[((imageWidth * (y+1)) + (x-1)) *4+1]*g|| 0;
+                        let hhg = original[((imageWidth * (y+1)) +   x)   *4+1]*h|| 0;
+                        let iig = original[((imageWidth * (y+1)) + (x+1)) *4+1]*i|| 0;
+
+                        //blue
+                        let aab = original[((imageWidth * (y-1)) + (x-1)) *4+2]*a|| 0;
+                        let bbb = original[((imageWidth * (y-1)) +   x)   *4+2]*b|| 0;
+                        let ccb = original[((imageWidth * (y-1)) + (x+1)) *4+2]*c|| 0;
+                        let ddb = original[((imageWidth * y)     + (x-1)) *4+2]*d|| 0;
+                        let eeb = original[((imageWidth * y)     +   x)   *4+2]*e|| 0;
+                        let ffb = original[((imageWidth * y)     + (x+1)) *4+2]*f|| 0;
+                        let ggb = original[((imageWidth * (y+1)) + (x-1)) *4+2]*g|| 0;
+                        let hhb = original[((imageWidth * (y+1)) +   x)   *4+2]*h|| 0;
+                        let iib = original[((imageWidth * (y+1)) + (x+1)) *4+2]*i|| 0;
+                        
+/*
+                        //canto superior esquerdo
+                        if(typeof aar == 'undefined' && typeof iir != 'undefined' ){
+                            console.log(cse);
+                            aar = 0;bbr = 0; ccr = 0; ddr =0; ggr = 0;
+                            aag = 0;bbg = 0; ccg = 0; ddg =0; ggg = 0;
+                            aab = 0;bbb = 0; ccb = 0; ddb =0; ggb = 0;
+                        }
+                        
+                        //canto superior direito
+                        if(typeof aar == 'undefined' && typeof ggr != 'undefined' ){
+                            aar = 0;bbr = 0; ccr = 0; ffr =0; iir =0;
+                            aag = 0;bbg = 0; ccg = 0; ffg =0; iig =0;
+                            aab = 0;bbb = 0; ccb = 0; ffb =0; iib =0;
+                        }
+                        
+                        //canto inferior esquerdo
+                        if(typeof aar == 'undefined' && typeof ccr != 'undefined' ){
+                            aar = 0;ddr = 0; ggr = 0; hhr =0; iir =0;
+                            aag = 0;ddg = 0; ggg = 0; hhg =0; iig =0;
+                            aab = 0;ddb = 0; ggb = 0; hhb =0; iib =0;
+                        }
+
+                        //canto inferior direito
+                        if(typeof ccr == 'undefined' && typeof aar != 'undefined' ){
+                            ccr = 0;ffr = 0; iir = 0; ggr =0; hhr =0;
+                            ccg = 0;ffg = 0; iig = 0; ggg =0; hhg =0;
+                            ccb = 0;ffb = 0; iib = 0; ggb =0; hhb =0;
+                        }
+
+*/
+                        let somar = (aar+bbr+ccr+ddr+eer+ffr+ggr+hhr+iir);
+                        let somag = (aag+bbg+ccg+ddg+eeg+ffg+ggg+hhg+iig);
+                        let somab = (aab+bbb+ccb+ddb+eeb+ffb+ggb+hhb+iib);
+                        if(somar < 0){somar = somar*-1;}
+                        if(somag < 0){somag = somag*-1;}
+                        if(somab < 0){somab = somab*-1;}
+
+
+                        //red
+                        imgData.data[((imageWidth * y) + x)*4 ] =somar; 
+                        //console.log((aar+bbr+ccr+ddr+eer+ffr+ggr+hhr+iir)*(-1));    
+                        //green
+                        imgData.data[((imageWidth * y) + x)*4+1] =somag;
+                        //blue
+                        imgData.data[((imageWidth * y) + x)*4+2] =somab;
+                        //imgData.data[((imageWidth * y) + x)*4+3] =255;*/
+
+                    }
+                }
+
+                console.log(original);
+                console.log(imgData);
+
+                ctx.putImageData(imgData, 0, 0);
+            }
+            
+        }
+        
+        
+    }
+
     this.negative = () => {
         preview = photo.getPreview();
 
@@ -80,7 +225,7 @@ function PhotoShop() {
     this.piecewise = (points) => {
         if (points) {
             if (points.length >= 10) {
-                let a = parseInt(points.split(',')[0].split('(')[1], 10);
+                let a = parseInt(points.split(',')[0].split('(')[1], 10);//(a,b),(a,b)
                 let b = parseInt(points.split(',')[1].split(')')[0], 10);
                 let c = parseInt(points.split(',')[2].split('(')[1], 10);
                 let d = parseInt(points.split(',')[3].split(')')[0], 10);
