@@ -49,12 +49,7 @@ function PhotoShop() {
                     }
                 }
                 
-                    console.log(original);
-                    let suamae = original[((imageWidth * (20)) +20) *4]*a;
-                    console.log(suamae);
-                    
-                
-                    
+ 
                 for(var y = 0; y < imageHeight; y++) {
                     
                   // loop through each column
@@ -92,48 +87,22 @@ function PhotoShop() {
                         let hhb = original[((imageWidth * (y+1)) +   x)   *4+2]*h|| 0;
                         let iib = original[((imageWidth * (y+1)) + (x+1)) *4+2]*i|| 0;
                         
-/*
-                        //canto superior esquerdo
-                        if(typeof aar == 'undefined' && typeof iir != 'undefined' ){
-                            console.log(cse);
-                            aar = 0;bbr = 0; ccr = 0; ddr =0; ggr = 0;
-                            aag = 0;bbg = 0; ccg = 0; ddg =0; ggg = 0;
-                            aab = 0;bbb = 0; ccb = 0; ddb =0; ggb = 0;
-                        }
-                        
-                        //canto superior direito
-                        if(typeof aar == 'undefined' && typeof ggr != 'undefined' ){
-                            aar = 0;bbr = 0; ccr = 0; ffr =0; iir =0;
-                            aag = 0;bbg = 0; ccg = 0; ffg =0; iig =0;
-                            aab = 0;bbb = 0; ccb = 0; ffb =0; iib =0;
-                        }
-                        
-                        //canto inferior esquerdo
-                        if(typeof aar == 'undefined' && typeof ccr != 'undefined' ){
-                            aar = 0;ddr = 0; ggr = 0; hhr =0; iir =0;
-                            aag = 0;ddg = 0; ggg = 0; hhg =0; iig =0;
-                            aab = 0;ddb = 0; ggb = 0; hhb =0; iib =0;
-                        }
 
-                        //canto inferior direito
-                        if(typeof ccr == 'undefined' && typeof aar != 'undefined' ){
-                            ccr = 0;ffr = 0; iir = 0; ggr =0; hhr =0;
-                            ccg = 0;ffg = 0; iig = 0; ggg =0; hhg =0;
-                            ccb = 0;ffb = 0; iib = 0; ggb =0; hhb =0;
-                        }
 
-*/
                         let somar = (aar+bbr+ccr+ddr+eer+ffr+ggr+hhr+iir);
                         let somag = (aag+bbg+ccg+ddg+eeg+ffg+ggg+hhg+iig);
                         let somab = (aab+bbb+ccb+ddb+eeb+ffb+ggb+hhb+iib);
                         if(somar < 0){somar = somar*-1;}
                         if(somag < 0){somag = somag*-1;}
                         if(somab < 0){somab = somab*-1;}
-
+/*
+                        if(somar > 255){somar = somar%255;}
+                        if(somag > 255){somag = somag%255;}
+                        if(somab > 255){somab = somab%255;}
+*/
 
                         //red
-                        imgData.data[((imageWidth * y) + x)*4 ] =somar; 
-                        //console.log((aar+bbr+ccr+ddr+eer+ffr+ggr+hhr+iir)*(-1));    
+                        imgData.data[((imageWidth * y) + x)*4 ] =somar;    
                         //green
                         imgData.data[((imageWidth * y) + x)*4+1] =somag;
                         //blue
