@@ -144,23 +144,30 @@ function PhotoShop() {
                 }
 
                 if(matrix === "topsobel"){
-                    var a = c = 1; 
-                    var b  = 2;
-                    var d = e = f = 0;
-                    var g = i = -1;
-                    var h = -2 ;
-                    console.log("topsobel:",a,b,c,d,e,f,g,h,i);
-                }
-
-                if(matrix === "bottomsobel"){
                     var a = c = -1; 
                     var b  = -2;
                     var d = e = f = 0;
                     var g = i = 1;
                     var h = 2 ;
+                    console.log("topsobel:",a,b,c,d,e,f,g,h,i);
+                }
+
+                if(matrix === "bottomsobel"){
+                    var a = c = 1; 
+                    var b  = 2;
+                    var d = e = f = 0;
+                    var g = i = -1;
+                    var h = -2;
                     console.log("bottomsobel:",a,b,c,d,e,f,g,h,i);
                 }
 
+                if(matrix === "leftsobel"){
+                    var a = g = 1; 
+                    var b  = e = h = 0;
+                    var d = 2;
+                    var f = -2;
+                    console.log("leftsobel:",a,b,c,d,e,f,g,h,i);
+                }
 
 
                 if (matrix.length >= 23) {
