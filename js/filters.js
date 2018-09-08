@@ -9,36 +9,129 @@ function PhotoShop() {
         hist.set(preview);
     }
 
+    this.nitidezhighboost = () =>{
+        
+                    var a = b = c = d = e = f = g=h=i = 1/9;
+
+                    preview = photo.getPreview();
+                    ctx = canvas.getContext('2d');
+                    ctx.drawImage(preview, 0, 0, preview.width, preview.height);
+                    let imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+                    let imageWidth = preview.width;
+                    let imageHeight = preview.height;
+
+
+                    let original = new Array();
+
+                    for(var y = 0; y < imageHeight; y++) {
+                      // loop through each column
+                        for(var x = 0; x < imageWidth; x++) {
+                            original[((imageWidth * y) + x)*4] = imgData.data[((imageWidth * y) + x)*4];
+                            original[((imageWidth * y) + x)*4+1] = imgData.data[((imageWidth * y) + x)*4+1];
+                            original[((imageWidth * y) + x)*4+2] = imgData.data[((imageWidth * y) + x)*4+2];
+                            original[((imageWidth * y) + x)*4+3] = imgData.data[((imageWidth * y) + x)*4+3];
+
+                        }
+                    }
+                    
+                    for(var y = 0; y < imageHeight; y++) {
+                        
+                      // loop through each column
+                        for(var x = 0; x < imageWidth; x++) {
+                            //red
+                            let aar = original[((imageWidth * (y-1)) + (x-1)) *4]*a|| 0;
+                            let bbr = original[((imageWidth * (y-1)) +   x)   *4]*b|| 0;
+                            let ccr = original[((imageWidth * (y-1)) + (x+1)) *4]*c|| 0;
+                            let ddr = original[((imageWidth * y)     + (x-1)) *4]*d|| 0;
+                            let eer = original[((imageWidth * y)     + x)     *4]*e|| 0;
+                            let ffr = original[((imageWidth * y)     + (x+1)) *4]*f|| 0;
+                            let ggr = original[((imageWidth * (y+1)) + (x-1)) *4]*g|| 0;
+                            let hhr = original[((imageWidth * (y+1)) + x)     *4]*h|| 0;
+                            let iir = original[((imageWidth * (y+1)) + (x+1)) *4]*i|| 0;
+
+                            //green
+                            let aag = original[((imageWidth * (y-1)) + (x-1)) *4+1]*a|| 0;
+                            let bbg = original[((imageWidth * (y-1)) +   x)   *4+1]*b|| 0;
+                            let ccg = original[((imageWidth * (y-1)) + (x+1)) *4+1]*c|| 0;
+                            let ddg = original[((imageWidth * y)     + (x-1)) *4+1]*d|| 0;
+                            let eeg = original[((imageWidth * y)     +   x)   *4+1]*e|| 0;
+                            let ffg = original[((imageWidth * y)     + (x+1)) *4+1]*f|| 0;
+                            let ggg = original[((imageWidth * (y+1)) + (x-1)) *4+1]*g|| 0;
+                            let hhg = original[((imageWidth * (y+1)) +   x)   *4+1]*h|| 0;
+                            let iig = original[((imageWidth * (y+1)) + (x+1)) *4+1]*i|| 0;
+
+                            //blue
+                            let aab = original[((imageWidth * (y-1)) + (x-1)) *4+2]*a|| 0;
+                            let bbb = original[((imageWidth * (y-1)) +   x)   *4+2]*b|| 0;
+                            let ccb = original[((imageWidth * (y-1)) + (x+1)) *4+2]*c|| 0;
+                            let ddb = original[((imageWidth * y)     + (x-1)) *4+2]*d|| 0;
+                            let eeb = original[((imageWidth * y)     +   x)   *4+2]*e|| 0;
+                            let ffb = original[((imageWidth * y)     + (x+1)) *4+2]*f|| 0;
+                            let ggb = original[((imageWidth * (y+1)) + (x-1)) *4+2]*g|| 0;
+                            let hhb = original[((imageWidth * (y+1)) +   x)   *4+2]*h|| 0;
+                            let iib = original[((imageWidth * (y+1)) + (x+1)) *4+2]*i|| 0;
+
+                            let imgBorradar = (aar+bbr+ccr+ddr+eer+ffr+ggr+hhr+iir);
+                            let imgBorradag = (aag+bbg+ccg+ddg+eeg+ffg+ggg+hhg+iig);
+                            let imgBorradab = (aab+bbb+ccb+ddb+eeb+ffb+ggb+hhb+iib);
+                            if(imgBorradar < 0){somar = 0;}
+                            if(imgBorradag < 0){somag = 0;}
+                            if(imgBorradab < 0){somab = 0;}
+
+                            let mascarar = original[((imageWidth * y) + x)*4] - imgBorradar;
+                            let mascarag = original[((imageWidth * y) + x)*4+1] - imgBorradag;
+                            let mascarab = original[((imageWidth * y) + x)*4+2] - imgBorradab;
+
+                            let k = 2;
+                            //red      
+                            imgData.data[((imageWidth * y) + x)*4 ] = original[((imageWidth * y) + x)*4] + k * mascarar;    
+                            //green
+                            imgData.data[((imageWidth * y) + x)*4+1] = original[((imageWidth * y) + x)*4+1] + k * mascarag;
+                            //blue
+                            imgData.data[((imageWidth * y) + x)*4+2] = original[((imageWidth * y) + x)*4+2] + k * mascarab;
+                            //imgData.data[((imageWidth * y) + x)*4+3] =255;*/
+
+                        }
+                    }
+                    
+                    ctx.putImageData(imgData, 0, 0);
+                
+    
+    }
+
     this.convolution = (matrix) =>{
         console.log(matrix);
         if (matrix) {
             if(matrix === "mediana"){
                 this.mediana();
                 
-            }else{
+            }else if(matrix === "nitidezhighboost"){
+                this.nitidezhighboost();
+
+            } else{
             
                 if(matrix === "media"){
                     var a = b = c = d = e = f = g=h=i = 1/9;
-                    console.log(a,b,c,d,e,f,g,h,i);
+                    console.log("media",a,b,c,d,e,f,g,h,i);
                 }
 
                 if(matrix === "mediaponderada"){
                     var a = b = c = d = f = g=h=i = 1/10;
                     var e = 1/5;
-                    console.log(a,b,c,d,e,f,g,h,i);
+                    console.log("mediaponderada:",a,b,c,d,e,f,g,h,i);
                 }
 
                 if(matrix === "laplaciano"){
                     var a =  c = g = i = 0;
                     var b = d = f = h = -1;
                     var e = 4;
-                    console.log(a,b,c,d,e,f,g,h,i);
+                    console.log("laplaciano:",a,b,c,d,e,f,g,h,i);
                 }
 
                 if(matrix === "laplacianodiagonal"){
                     var a = b = c = d = f = g=h=i = -1;
                     var e = 8;
-                    console.log(a,b,c,d,e,f,g,h,i);
+                    console.log("laplacianodiagonal:",a,b,c,d,e,f,g,h,i);
                 }
 
                 if(matrix === "sobel"){
@@ -51,12 +144,21 @@ function PhotoShop() {
                 }
 
                 if(matrix === "topsobel"){
-                    var a = 1; 
-                    var b = c = 1;
+                    var a = c = 1; 
+                    var b  = 2;
                     var d = e = f = 0;
                     var g = i = -1;
                     var h = -2 ;
                     console.log("topsobel:",a,b,c,d,e,f,g,h,i);
+                }
+
+                if(matrix === "bottomsobel"){
+                    var a = c = -1; 
+                    var b  = -2;
+                    var d = e = f = 0;
+                    var g = i = 1;
+                    var h = 2 ;
+                    console.log("bottomsobel:",a,b,c,d,e,f,g,h,i);
                 }
 
 
