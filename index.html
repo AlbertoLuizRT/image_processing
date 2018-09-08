@@ -63,7 +63,16 @@
                             </p>
 
                             <p>
-                                <input id="convolution" placeholder="(a,b,c),(a,b,c),(a,b,c)">
+                                
+                                <input list="convolution-list" id="convolution" placeholder="(a,b,c),(a,b,c),(a,b,c)">
+                                <datalist id="convolution-list">
+                                    <option value="media">
+                                    <option value="mediana">
+                                    <option value="mediaponderada">
+                                    <option value="laplaciano">
+                                    <option value="sobel">
+                                    <option value="topsobel">
+                                </datalist>
                                 <button class="btn btn-primary" 
                                         onclick='photo.convolution(document.getElementById("convolution").value)'>Convolução
                                 </button>

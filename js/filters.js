@@ -10,6 +10,7 @@ function PhotoShop() {
     }
 
     this.convolution = (matrix) =>{
+        console.log(matrix);
         if (matrix) {
             if(matrix === "mediana"){
                 this.mediana();
@@ -27,20 +28,38 @@ function PhotoShop() {
                     console.log(a,b,c,d,e,f,g,h,i);
                 }
 
+                if(matrix === "laplaciano"){
+                    var a =  c = g = i = 0;
+                    var b = d = f = h = -1;
+                    var e = 4;
+                    console.log(a,b,c,d,e,f,g,h,i);
+                }
+
                 if(matrix === "laplacianodiagonal"){
                     var a = b = c = d = f = g=h=i = -1;
                     var e = 8;
                     console.log(a,b,c,d,e,f,g,h,i);
                 }
 
-                if(matrix === "laplaciano"){
-                    var a = b = c = d = f = g=h=i = 1;
-                    var e = -8;
-                    console.log(a,b,c,d,e,f,g,h,i);
+                if(matrix === "sobel"){
+                    var a = c = 1; 
+                    var b = 2;
+                    var d = e = f = 0;
+                    var g = i = -1;
+                    var h = -2 ;
+                    console.log("sobel:",a,b,c,d,e,f,g,h,i);
+                }
+
+                if(matrix === "topsobel"){
+                    var a = 1; 
+                    var b = c = 1;
+                    var d = e = f = 0;
+                    var g = i = -1;
+                    var h = -2 ;
+                    console.log("topsobel:",a,b,c,d,e,f,g,h,i);
                 }
 
 
-                
 
                 if (matrix.length >= 23) {
                     
