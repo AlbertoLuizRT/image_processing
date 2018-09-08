@@ -21,11 +21,24 @@ function PhotoShop() {
                     console.log(a,b,c,d,e,f,g,h,i);
                 }
 
-                if(matrix === "sharpen"){
-                    var a = b = c = d = f = g=h=i = -1;
-                    var e = 9;
+                if(matrix === "mediaponderada"){
+                    var a = b = c = d = f = g=h=i = 1/10;
+                    var e = 1/5;
                     console.log(a,b,c,d,e,f,g,h,i);
                 }
+
+                if(matrix === "laplacianodiagonal"){
+                    var a = b = c = d = f = g=h=i = -1;
+                    var e = 8;
+                    console.log(a,b,c,d,e,f,g,h,i);
+                }
+
+                if(matrix === "laplaciano"){
+                    var a = b = c = d = f = g=h=i = 1;
+                    var e = -8;
+                    console.log(a,b,c,d,e,f,g,h,i);
+                }
+
 
                 
 
