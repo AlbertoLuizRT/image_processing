@@ -134,14 +134,6 @@ function PhotoShop() {
                     console.log("laplacianodiagonal:",a,b,c,d,e,f,g,h,i);
                 }
 
-                if(matrix === "sobel"){
-                    var a = c = 1; 
-                    var b = 2;
-                    var d = e = f = 0;
-                    var g = i = -1;
-                    var h = -2 ;
-                    console.log("sobel:",a,b,c,d,e,f,g,h,i);
-                }
 
                 if(matrix === "topsobel"){
                     var a = c = -1; 
@@ -167,6 +159,14 @@ function PhotoShop() {
                     var d = 2;
                     var f = -2;
                     console.log("leftsobel:",a,b,c,d,e,f,g,h,i);
+                }
+
+                if(matrix === "rightsobel"){
+                    var a = g = -1; 
+                    var b  = e = h = 0;
+                    var d = -2;
+                    var f = 2;
+                    console.log("rightsobel:",a,b,c,d,e,f,g,h,i);
                 }
 
 
