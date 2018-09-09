@@ -64,8 +64,9 @@
 
                             <p>
                                 
-                                <input list="convolution-list" id="convolution" placeholder="(a,b,c),(a,b,c),(a,b,c)">
+                                <input onclick="this.select();" list="convolution-list" id="convolution" placeholder="(a,b,c),(a,b,c),(a,b,c)">
                                 <datalist id="convolution-list">
+                                    <option value="identidade">
                                     <option value="media">
                                     <option value="mediana">
                                     <option value="mediaponderada">
@@ -81,7 +82,9 @@
                                         onclick='photo.convolution(document.getElementById("convolution").value)'>Convolução
                                 </button>
                             </p>
-
+                            <p>
+                                <div id="showvaluesofmatrix"></div>
+                            </p>
                             <p>
                                 <input id="constantLog" type="text" placeholder="Constante Log">
                                 <button class="btn btn-primary"
