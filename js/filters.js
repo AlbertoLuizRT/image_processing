@@ -10,9 +10,9 @@ function PhotoShop() {
     }
 
     this.convolution = (matrix) =>{
-        let tr = false;
+        
         if (matrix) {
-            tr = true;
+            
             if(matrix === "mediana"){
                 this.mediana();
                 
