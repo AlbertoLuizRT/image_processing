@@ -66,6 +66,7 @@ function PhotoShop() {
                     var a = g = 1; 
                     var b  = e = h = 0;
                     var d = 2;
+                    var c = i = -1;
                     var f = -2;
                 }
 
@@ -73,6 +74,7 @@ function PhotoShop() {
                     var a = g = -1; 
                     var b  = e = h = 0;
                     var d = -2;
+                    var c = i = 1;
                     var f = 2;
                 }
 
@@ -259,7 +261,7 @@ function PhotoShop() {
                 let mascarag = original[((imageWidth * y) + x)*4+1] - imgBorradag;
                 let mascarab = original[((imageWidth * y) + x)*4+2] - imgBorradab;
 
-                let k = 2;
+                let k = 4;
                 //red      
                 imgData.data[((imageWidth * y) + x)*4 ] = original[((imageWidth * y) + x)*4] + k * mascarar;    
                 //green
