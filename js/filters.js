@@ -921,7 +921,98 @@ function PhotoShop() {
         });
     };
 
-}
+    this.mapToZeroUm = (cor) => {
+        let dec_cor = cor/256;
+        return dec_cor;
+    }
 
+    this.hsv = (rgb_values) =>{
+        if(rgb_values){
+            if (rgb_values.length >= 5) {
+             //(10,10,10)
+                var rr = parseInt(rgb_values.split(',')[0], 10)
+                var gg = parseInt(rgb_values.split(',')[1].split(',')[0], 10);
+                var bb = parseInt(rgb_values.split(',')[2], 10);
+
+                
+
+                let R = photo.mapToZeroUm(rr);
+                let G = photo.mapToZeroUm(gg);
+                let B = photo.mapToZeroUm(bb);
+
+                console.log(R, G, B);
+
+                let MAX = Math.max(R,G,B);
+                let MIN = Math.min(R,G,B);
+
+                if(MAX == R && G >= B){
+                    var H = 60 * (G - B)/(MAX - MIN) + 0 || 0;
+                }
+
+                else if(MAX == R && G < B){
+                    var H = 60 * (G - B)/(MAX - MIN) + 360 || 0;
+                }
+
+                else if(MAX == G){
+                    var H = 60 * (B - R)/(MAX - MIN) + 120 || 0;
+                }
+
+                else if(MAX == B){
+                    var H = 60 * (R - G)/(MAX - MIN) + 240 || 0;
+                }
+                       
+                var S = (MAX - MIN)/MAX;
+
+                var V = MAX;
+
+                let setvalues = ["(" +" H: " + H + " "," S: "+ S + " ", " V: " + V + ")"];
+                document.getElementById('showNEWvalues').innerText = setvalues;
+                document.getElementById('btn-hsv').style.backgroundColor = "rgb(" + rr + "," + gg + "," + bb + ")";
+                console.log("HSV done");
+
+            }
+        }
+    
+    }
+
+    this.cmyk = (rgb_values) =>{
+        if(rgb_values){
+            if (rgb_values.length >= 5) {
+             //(10,10,10)
+                var rr = parseInt(rgb_values.split(',')[0], 10)
+                var gg = parseInt(rgb_values.split(',')[1].split(',')[0], 10);
+                var bb = parseInt(rgb_values.split(',')[2], 10);
+
+                
+
+                let R = photo.mapToZeroUm(rr);
+                let G = photo.mapToZeroUm(gg);
+                let B = photo.mapToZeroUm(bb);
+
+                console.log(R, G, B);
+
+                let MAX = Math.max(R,G,B);
+                let MIN = Math.min(R,G,B);
+
+                var K = 1 - MAX;
+                       
+                var C = (1-R-K)/(1-K);
+
+                var M = (1-G-K)/(1-K);
+
+                var Y = (1-B-K)/(1-K);
+
+                let setvalues = ["(" +" K: " + K + " "," C: "+ C + " ", " M: " + M, " Y: " + Y + ")"];
+                document.getElementById('showNEWvalues').innerText = setvalues;
+
+                document.getElementById('btn-cmyk').style.backgroundColor = "rgb(" + rr + "," + gg + "," + bb + ")";
+                console.log("CMYK done");
+
+            }
+        }
+
+    } 
+
+}
 
 let photo = new PhotoShop();
