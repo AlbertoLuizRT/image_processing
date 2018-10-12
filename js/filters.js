@@ -922,11 +922,11 @@ function PhotoShop() {
     };
 
     this.mapToZeroUm = (cor) => {
-        let dec_cor = cor/256;
+        let dec_cor = cor/255;
         return dec_cor;
     }
 
-    this.hsv = (rgb_values) =>{
+    this.rgbToOthers = (rgb_values) =>{
         if(rgb_values){
             if (rgb_values.length >= 5) {
              //(10,10,10)
@@ -934,16 +934,13 @@ function PhotoShop() {
                 var gg = parseInt(rgb_values.split(',')[1].split(',')[0], 10);
                 var bb = parseInt(rgb_values.split(',')[2], 10);
 
-                
-
                 let R = photo.mapToZeroUm(rr);
                 let G = photo.mapToZeroUm(gg);
                 let B = photo.mapToZeroUm(bb);
 
-                console.log(R, G, B);
-
                 let MAX = Math.max(R,G,B);
                 let MIN = Math.min(R,G,B);
+                console.log(MAX, MIN);
 
                 if(MAX == R && G >= B){
                     var H = 60 * (G - B)/(MAX - MIN) + 0 || 0;
@@ -960,59 +957,169 @@ function PhotoShop() {
                 else if(MAX == B){
                     var H = 60 * (R - G)/(MAX - MIN) + 240 || 0;
                 }
-                       
-                var S = (MAX - MIN)/MAX;
+                
+                if(MAX == 0){
+                    var S = 0
+                }else{
+                    var S = (MAX - MIN)/MAX
+                }      
 
                 var V = MAX;
 
-                let setvalues = ["(" +" H: " + H + " "," S: "+ S + " ", " V: " + V + ")"];
-                document.getElementById('showNEWvalues').innerText = setvalues;
+                var K = 1 - MAX || 0;           
+                var C = (1-R-K)/(1-K) || 0;
+                var M = (1-G-K)/(1-K) || 0;
+                var Y = (1-B-K)/(1-K) || 0;
+
+                //let setvalues = ["(" +" H: " + H + " "," S: "+ S + " ", " V: " + V + ")"];
+                document.getElementById("h_value").value = H;
+                document.getElementById("s_value").value = (S*100).toFixed(2);
+                document.getElementById("v_value").value = (V*100).toFixed(2);
+
+                document.getElementById("c_value").value = (C*100).toFixed(2);
+                document.getElementById("m_value").value = (M*100).toFixed(2);
+                document.getElementById("y_value").value = (Y*100).toFixed(2);
+                document.getElementById("k_value").value = (K*100).toFixed(2);
+                //document.getElementById('showNEWvalues').innerText = setvalues;
+                document.getElementById('btn-rgb').style.backgroundColor = "rgb(" + rr + "," + gg + "," + bb + ")";
                 document.getElementById('btn-hsv').style.backgroundColor = "rgb(" + rr + "," + gg + "," + bb + ")";
-                console.log("HSV done");
+                document.getElementById('btn-cmyk').style.backgroundColor = "rgb(" + rr + "," + gg + "," + bb + ")";
 
             }
         }
     
     }
 
-    this.cmyk = (rgb_values) =>{
-        if(rgb_values){
-            if (rgb_values.length >= 5) {
-             //(10,10,10)
-                var rr = parseInt(rgb_values.split(',')[0], 10)
-                var gg = parseInt(rgb_values.split(',')[1].split(',')[0], 10);
-                var bb = parseInt(rgb_values.split(',')[2], 10);
+    this.hsvToOthers = (H,S,V) =>{
+        if(H && S && V){
 
+            //var hh = H*Math.PI/180;
+            var ss = S/100;
+            var vv = V/100;
                 
+            var cc = vv*ss;
+            var xx = cc * (1-Math.abs((H/60)%2-1));
+            var m = vv-cc;
 
-                let R = photo.mapToZeroUm(rr);
-                let G = photo.mapToZeroUm(gg);
-                let B = photo.mapToZeroUm(bb);
+            if(0<=H && H <60){
+                var Ri = cc;
+                var Gi = xx;
+                var Bi = 0;
+            }else if(60<= H && H <120){
+                var Ri = xx;
+                var Gi = cc;
+                var Bi = 0;
+            }else if(120<= H && H<180){
+                var Ri = 0;
+                var Gi = cc;
+                var Bi = xx;
+            }else if(180<= H && H <240){
+                var Ri = 0;
+                var Gi = xx;
+                var Bi = cc;
+            }else if(240<= H && H <300){
+                var Ri = 0;
+                var Gi = xx;
+                var Bi = cc;
+            }else if(300<= H && H <=360){
+                var Ri = cc;
+                var Gi = 0;
+                var Bi = xx;
+            }    
+            console.log(Ri,Gi,Bi);
+            var R = Math.max(0,Math.min(1,Ri+m));
+            var G = Math.max(0,Math.min(1,Gi+m));
+            var B = Math.max(0,Math.min(1,Bi+m));
+            console.log(R,G,B);
+            var RR = Math.max(R*255, 0);
+            var GG = Math.max(G*255,0);
+            var BB = Math.max(B*255,0);
+            console.log(RR,GG,BB);
 
-                console.log(R, G, B);
+            let MAX = Math.max(R,G,B);
+            let MIN = Math.min(R,G,B);
 
-                let MAX = Math.max(R,G,B);
-                let MIN = Math.min(R,G,B);
+            var K = 1 - MAX;
+                   
+            var C = (1-R-K)/(1-K) ||0;
 
-                var K = 1 - MAX;
-                       
-                var C = (1-R-K)/(1-K);
+            var M = (1-G-K)/(1-K) ||0;
 
-                var M = (1-G-K)/(1-K);
+            var Y = (1-B-K)/(1-K) ||0;
 
-                var Y = (1-B-K)/(1-K);
 
-                let setvalues = ["(" +" K: " + K + " "," C: "+ C + " ", " M: " + M, " Y: " + Y + ")"];
-                document.getElementById('showNEWvalues').innerText = setvalues;
+            document.getElementById("rgb_values").value =  RR.toFixed(2) 
+                                                    + "," + GG.toFixed(2) 
+                                                    + "," + BB.toFixed(2);
 
-                document.getElementById('btn-cmyk').style.backgroundColor = "rgb(" + rr + "," + gg + "," + bb + ")";
-                console.log("CMYK done");
+            document.getElementById("c_value").value = (C*100).toFixed(2);
+            document.getElementById("m_value").value = (M*100).toFixed(2);
+            document.getElementById("y_value").value = (Y*100).toFixed(2);
+            document.getElementById("k_value").value = (K*100).toFixed(2);
 
-            }
+            document.getElementById('btn-rgb').style.backgroundColor = "rgb(" + RR + "," + GG + "," + BB + ")";
+            document.getElementById('btn-hsv').style.backgroundColor = "rgb(" + RR + "," + GG + "," + BB + ")";
+            document.getElementById('btn-cmyk').style.backgroundColor = "rgb(" + RR + "," + GG + "," + BB + ")";
+     
         }
 
     } 
 
+    this.cmykToOthers = (C,M,Y,K) =>{
+        if(C && M && Y && K){
+            let rr = (1-C/100)*(1-K/100);
+            let gg = (1-M/100)*(1-K/100);
+            let bb = (1-Y/100)*(1-K/100);
+
+            console.log(rr,gg,bb)
+
+            let R = rr;
+            let G = gg;
+            let B = bb;
+
+            let MAX = Math.max(R,G,B);
+            let MIN = Math.min(R,G,B);
+            
+
+            if(MAX == R && G >= B){
+                var H = 60 * (G - B)/(MAX - MIN) + 0 || 0;
+            }
+
+            else if(MAX == R && G < B){
+                var H = 60 * (G - B)/(MAX - MIN) + 360 || 0;
+            }
+
+            else if(MAX == G){
+                var H = 60 * (B - R)/(MAX - MIN) + 120 || 0;
+            }
+
+            else if(MAX == B){
+                var H = 60 * (R - G)/(MAX - MIN) + 240 || 0;
+            }
+            
+            if(MAX == 0){
+                var S = 0
+            }else{
+                var S = (MAX - MIN)/MAX
+            }      
+
+            var V = MAX;
+            let RR = R*255;
+            let GG = G*255;
+            let BB = B*255;
+
+            
+            document.getElementById("h_value").value = H;
+            document.getElementById("s_value").value = (S*100).toFixed(2);
+            document.getElementById("v_value").value = (V*100).toFixed(2);
+
+            document.getElementById("rgb_values").value =  RR + "," + GG + "," + BB;
+            //document.getElementById('showNEWvalues').innerText = setvalues;
+            document.getElementById('btn-rgb').style.backgroundColor = "rgb(" + RR + "," + GG + "," + BB + ")";
+            document.getElementById('btn-hsv').style.backgroundColor = "rgb(" + RR + "," + GG + "," + BB + ")";
+            document.getElementById('btn-cmyk').style.backgroundColor = "rgb(" + RR + "," + GG + "," + BB + ")";
+        }
+    }
 }
 
 let photo = new PhotoShop();

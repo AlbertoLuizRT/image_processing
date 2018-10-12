@@ -64,15 +64,37 @@
 
                         <p>
                             <input id="rgb_values" placeholder="r,g,b">
-
-                            <button id="btn-hsv" class="btn btn-primary" 
-                            onclick='photo.hsv(document.getElementById("rgb_values").value)'>HSV</button>
-
-                            <button id="btn-cmyk" class="btn btn-primary" 
-                            onclick='photo.cmyk(document.getElementById("rgb_values").value)'>CMYK</button>
+                            <button id="btn-rgb" class="btn btn-primary" 
+                            onclick='photo.rgbToOthers(document.getElementById("rgb_values").value)'>RGB</button>
                             
- 
-                            <div id="showNEWvalues"></div>    
+
+                            
+                                 
+                        </p>
+
+                        <p>
+                            <input id="h_value" size="2">
+                            <input id="s_value" size="2">
+                            <input id="v_value" size="2">
+                            <button id="btn-hsv" class="btn btn-primary" 
+                            onclick='photo.hsvToOthers(
+                            document.getElementById("h_value").value,
+                            document.getElementById("s_value").value,
+                            document.getElementById("v_value").value)'>HSV</button>
+                            <div id="showNEWvalues"></div> 
+                        </p>
+
+                        <p>
+                            <input id="c_value" size="2">
+                            <input id="m_value" size="2">
+                            <input id="y_value" size="2">
+                            <input id="k_value" size="2">
+                            <button id="btn-cmyk" class="btn btn-primary" 
+                            onclick='photo.cmykToOthers(document.getElementById("c_value").value,
+                            document.getElementById("m_value").value,
+                            document.getElementById("y_value").value,
+                            document.getElementById("k_value").value)'>CMYK</button>
+                             
                         </p>
                        
                         <p>
