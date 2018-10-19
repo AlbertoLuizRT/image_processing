@@ -2,12 +2,27 @@ function PhotoShop() {
 
     this.getPreview = () => {
         return this._preview;
-    }
+    };
 
     this.set = (preview) => {
         this._preview = preview;
         hist.set(preview);
-    }
+    };
+
+    this.getPreviewChroma = () => {
+        return this._chroma;
+    };
+
+    this.setChroma = (chromaPreview) => {
+        this._chroma = chromaPreview;
+    };
+
+    this.distance = (a, b) => {
+        let k = Math.pow((a[0] - b[0]), 2);
+        let i = Math.pow((a[1] - b[1]), 2);
+        let z = Math.pow((a[2] - b[2]), 2);
+        return Math.sqrt(k + i + z);
+    };
 
     this.convolution = (matrix) => {
 
@@ -922,14 +937,14 @@ function PhotoShop() {
     };
 
     this.mapToZeroUm = (cor) => {
-        let dec_cor = cor/255;
+        let dec_cor = cor / 255;
         return dec_cor;
     }
 
-    this.rgbToOthers = (rgb_values) =>{
-        if(rgb_values){
+    this.rgbToOthers = (rgb_values) => {
+        if (rgb_values) {
             if (rgb_values.length >= 5) {
-             //(10,10,10)
+                //(10,10,10)
                 var rr = parseInt(rgb_values.split(',')[0], 10)
                 var gg = parseInt(rgb_values.split(',')[1].split(',')[0], 10);
                 var bb = parseInt(rgb_values.split(',')[2], 10);
@@ -938,48 +953,48 @@ function PhotoShop() {
                 let G = photo.mapToZeroUm(gg);
                 let B = photo.mapToZeroUm(bb);
 
-                let MAX = Math.max(R,G,B);
-                let MIN = Math.min(R,G,B);
+                let MAX = Math.max(R, G, B);
+                let MIN = Math.min(R, G, B);
                 console.log(MAX, MIN);
 
-                if(MAX == R && G >= B){
-                    var H = 60 * (G - B)/(MAX - MIN) + 0 || 0;
+                if (MAX == R && G >= B) {
+                    var H = 60 * (G - B) / (MAX - MIN) + 0 || 0;
                 }
 
-                else if(MAX == R && G < B){
-                    var H = 60 * (G - B)/(MAX - MIN) + 360 || 0;
+                else if (MAX == R && G < B) {
+                    var H = 60 * (G - B) / (MAX - MIN) + 360 || 0;
                 }
 
-                else if(MAX == G){
-                    var H = 60 * (B - R)/(MAX - MIN) + 120 || 0;
+                else if (MAX == G) {
+                    var H = 60 * (B - R) / (MAX - MIN) + 120 || 0;
                 }
 
-                else if(MAX == B){
-                    var H = 60 * (R - G)/(MAX - MIN) + 240 || 0;
+                else if (MAX == B) {
+                    var H = 60 * (R - G) / (MAX - MIN) + 240 || 0;
                 }
-                
-                if(MAX == 0){
+
+                if (MAX == 0) {
                     var S = 0
-                }else{
-                    var S = (MAX - MIN)/MAX
-                }      
+                } else {
+                    var S = (MAX - MIN) / MAX
+                }
 
                 var V = MAX;
 
-                var K = 1 - MAX || 0;           
-                var C = (1-R-K)/(1-K) || 0;
-                var M = (1-G-K)/(1-K) || 0;
-                var Y = (1-B-K)/(1-K) || 0;
+                var K = 1 - MAX || 0;
+                var C = (1 - R - K) / (1 - K) || 0;
+                var M = (1 - G - K) / (1 - K) || 0;
+                var Y = (1 - B - K) / (1 - K) || 0;
 
                 //let setvalues = ["(" +" H: " + H + " "," S: "+ S + " ", " V: " + V + ")"];
                 document.getElementById("h_value").value = H;
-                document.getElementById("s_value").value = (S*100).toFixed(2);
-                document.getElementById("v_value").value = (V*100).toFixed(2);
+                document.getElementById("s_value").value = (S * 100).toFixed(2);
+                document.getElementById("v_value").value = (V * 100).toFixed(2);
 
-                document.getElementById("c_value").value = (C*100).toFixed(2);
-                document.getElementById("m_value").value = (M*100).toFixed(2);
-                document.getElementById("y_value").value = (Y*100).toFixed(2);
-                document.getElementById("k_value").value = (K*100).toFixed(2);
+                document.getElementById("c_value").value = (C * 100).toFixed(2);
+                document.getElementById("m_value").value = (M * 100).toFixed(2);
+                document.getElementById("y_value").value = (Y * 100).toFixed(2);
+                document.getElementById("k_value").value = (K * 100).toFixed(2);
                 //document.getElementById('showNEWvalues').innerText = setvalues;
                 document.getElementById('btn-rgb').style.backgroundColor = "rgb(" + rr + "," + gg + "," + bb + ")";
                 document.getElementById('btn-hsv').style.backgroundColor = "rgb(" + rr + "," + gg + "," + bb + ")";
@@ -987,138 +1002,328 @@ function PhotoShop() {
 
             }
         }
-    
+
     }
 
-    this.hsvToOthers = (H,S,V) =>{
-        if(H && S && V){
+    this.hsvToOthers = (H, S, V) => {
+        if (H && S && V) {
 
             //var hh = H*Math.PI/180;
-            var ss = S/100;
-            var vv = V/100;
-                
-            var cc = vv*ss;
-            var xx = cc * (1-Math.abs((H/60)%2-1));
-            var m = vv-cc;
+            var ss = S / 100;
+            var vv = V / 100;
 
-            if(0<=H && H <60){
+            var cc = vv * ss;
+            var xx = cc * (1 - Math.abs((H / 60) % 2 - 1));
+            var m = vv - cc;
+
+            if (0 <= H && H < 60) {
                 var Ri = cc;
                 var Gi = xx;
                 var Bi = 0;
-            }else if(60<= H && H <120){
+            } else if (60 <= H && H < 120) {
                 var Ri = xx;
                 var Gi = cc;
                 var Bi = 0;
-            }else if(120<= H && H<180){
+            } else if (120 <= H && H < 180) {
                 var Ri = 0;
                 var Gi = cc;
                 var Bi = xx;
-            }else if(180<= H && H <240){
+            } else if (180 <= H && H < 240) {
                 var Ri = 0;
                 var Gi = xx;
                 var Bi = cc;
-            }else if(240<= H && H <300){
+            } else if (240 <= H && H < 300) {
                 var Ri = 0;
                 var Gi = xx;
                 var Bi = cc;
-            }else if(300<= H && H <=360){
+            } else if (300 <= H && H <= 360) {
                 var Ri = cc;
                 var Gi = 0;
                 var Bi = xx;
-            }    
-            console.log(Ri,Gi,Bi);
-            var R = Math.max(0,Math.min(1,Ri+m));
-            var G = Math.max(0,Math.min(1,Gi+m));
-            var B = Math.max(0,Math.min(1,Bi+m));
-            console.log(R,G,B);
-            var RR = Math.max(R*255, 0);
-            var GG = Math.max(G*255,0);
-            var BB = Math.max(B*255,0);
-            console.log(RR,GG,BB);
+            }
+            console.log(Ri, Gi, Bi);
+            var R = Math.max(0, Math.min(1, Ri + m));
+            var G = Math.max(0, Math.min(1, Gi + m));
+            var B = Math.max(0, Math.min(1, Bi + m));
+            console.log(R, G, B);
+            var RR = Math.max(R * 255, 0);
+            var GG = Math.max(G * 255, 0);
+            var BB = Math.max(B * 255, 0);
+            console.log(RR, GG, BB);
 
-            let MAX = Math.max(R,G,B);
-            let MIN = Math.min(R,G,B);
+            let MAX = Math.max(R, G, B);
+            let MIN = Math.min(R, G, B);
 
             var K = 1 - MAX;
-                   
-            var C = (1-R-K)/(1-K) ||0;
 
-            var M = (1-G-K)/(1-K) ||0;
+            var C = (1 - R - K) / (1 - K) || 0;
 
-            var Y = (1-B-K)/(1-K) ||0;
+            var M = (1 - G - K) / (1 - K) || 0;
+
+            var Y = (1 - B - K) / (1 - K) || 0;
 
 
-            document.getElementById("rgb_values").value =  RR.toFixed(2) 
-                                                    + "," + GG.toFixed(2) 
-                                                    + "," + BB.toFixed(2);
+            document.getElementById("rgb_values").value = RR.toFixed(2)
+                + "," + GG.toFixed(2)
+                + "," + BB.toFixed(2);
 
-            document.getElementById("c_value").value = (C*100).toFixed(2);
-            document.getElementById("m_value").value = (M*100).toFixed(2);
-            document.getElementById("y_value").value = (Y*100).toFixed(2);
-            document.getElementById("k_value").value = (K*100).toFixed(2);
+            document.getElementById("c_value").value = (C * 100).toFixed(2);
+            document.getElementById("m_value").value = (M * 100).toFixed(2);
+            document.getElementById("y_value").value = (Y * 100).toFixed(2);
+            document.getElementById("k_value").value = (K * 100).toFixed(2);
 
             document.getElementById('btn-rgb').style.backgroundColor = "rgb(" + RR + "," + GG + "," + BB + ")";
             document.getElementById('btn-hsv').style.backgroundColor = "rgb(" + RR + "," + GG + "," + BB + ")";
             document.getElementById('btn-cmyk').style.backgroundColor = "rgb(" + RR + "," + GG + "," + BB + ")";
-     
+
         }
 
-    } 
+    }
 
-    this.cmykToOthers = (C,M,Y,K) =>{
-        if(C && M && Y && K){
-            let rr = (1-C/100)*(1-K/100);
-            let gg = (1-M/100)*(1-K/100);
-            let bb = (1-Y/100)*(1-K/100);
+    this.cmykToOthers = (C, M, Y, K) => {
+        if (C && M && Y && K) {
+            let rr = (1 - C / 100) * (1 - K / 100);
+            let gg = (1 - M / 100) * (1 - K / 100);
+            let bb = (1 - Y / 100) * (1 - K / 100);
 
-            console.log(rr,gg,bb)
+            console.log(rr, gg, bb)
 
             let R = rr;
             let G = gg;
             let B = bb;
 
-            let MAX = Math.max(R,G,B);
-            let MIN = Math.min(R,G,B);
-            
+            let MAX = Math.max(R, G, B);
+            let MIN = Math.min(R, G, B);
 
-            if(MAX == R && G >= B){
-                var H = 60 * (G - B)/(MAX - MIN) + 0 || 0;
+
+            if (MAX == R && G >= B) {
+                var H = 60 * (G - B) / (MAX - MIN) + 0 || 0;
             }
 
-            else if(MAX == R && G < B){
-                var H = 60 * (G - B)/(MAX - MIN) + 360 || 0;
+            else if (MAX == R && G < B) {
+                var H = 60 * (G - B) / (MAX - MIN) + 360 || 0;
             }
 
-            else if(MAX == G){
-                var H = 60 * (B - R)/(MAX - MIN) + 120 || 0;
+            else if (MAX == G) {
+                var H = 60 * (B - R) / (MAX - MIN) + 120 || 0;
             }
 
-            else if(MAX == B){
-                var H = 60 * (R - G)/(MAX - MIN) + 240 || 0;
+            else if (MAX == B) {
+                var H = 60 * (R - G) / (MAX - MIN) + 240 || 0;
             }
-            
-            if(MAX == 0){
+
+            if (MAX == 0) {
                 var S = 0
-            }else{
-                var S = (MAX - MIN)/MAX
-            }      
+            } else {
+                var S = (MAX - MIN) / MAX
+            }
 
             var V = MAX;
-            let RR = R*255;
-            let GG = G*255;
-            let BB = B*255;
+            let RR = R * 255;
+            let GG = G * 255;
+            let BB = B * 255;
 
-            
+
             document.getElementById("h_value").value = H;
-            document.getElementById("s_value").value = (S*100).toFixed(2);
-            document.getElementById("v_value").value = (V*100).toFixed(2);
+            document.getElementById("s_value").value = (S * 100).toFixed(2);
+            document.getElementById("v_value").value = (V * 100).toFixed(2);
 
-            document.getElementById("rgb_values").value =  RR + "," + GG + "," + BB;
+            document.getElementById("rgb_values").value = RR + "," + GG + "," + BB;
             //document.getElementById('showNEWvalues').innerText = setvalues;
             document.getElementById('btn-rgb').style.backgroundColor = "rgb(" + RR + "," + GG + "," + BB + ")";
             document.getElementById('btn-hsv').style.backgroundColor = "rgb(" + RR + "," + GG + "," + BB + ")";
             document.getElementById('btn-cmyk').style.backgroundColor = "rgb(" + RR + "," + GG + "," + BB + ")";
         }
+    }
+
+    this.sepia = () => {
+        preview = photo.getPreview();
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(preview, 0, 0, preview.width, preview.height);
+        let imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+        for (let i = 0; i < imgData.data.length; i += 4) {
+            let tr = 0.393 * (imgData.data[i]) + 0.769 * (imgData.data[i + 1]) + 0.189 * (imgData.data[i + 2])
+            let tg = 0.349 * (imgData.data[i]) + 0.686 * (imgData.data[i + 1]) + 0.168 * (imgData.data[i + 2])
+            let tb = 0.272 * (imgData.data[i]) + 0.534 * (imgData.data[i + 1]) + 0.131 * (imgData.data[i + 2])
+
+            if (tr > 255) {
+                r = 255
+            }
+            else {
+                r = tr
+            }
+            if (tg > 255) {
+                g = 255
+            } else {
+                g = tg
+            }
+            if (tb > 255) {
+                b = 255
+            } else {
+                b = tb
+            }
+            imgData.data[i] = r;
+            imgData.data[i + 1] = g;
+            imgData.data[i + 2] = b;
+        }
+        ctx.putImageData(imgData, 0, 0);
+    }
+
+    this.brightness = (brightFactor) => {
+        preview = photo.getPreview();
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(preview, 0, 0, preview.width, preview.height);
+        let imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+        for (var i = 0; i < imgData.data.length; i += 4) {
+            var b = [brightFactor * imgData.data[i], brightFactor * imgData.data[i + 1], brightFactor * imgData.data[i + 2]];
+
+            imgData.data[i] = b[0];
+            imgData.data[i + 1] = b[1];
+            imgData.data[i + 2] = b[2];
+
+        }
+        ctxt.putImageData(imgData, 0, 0);
+    }
+
+    this.chromaKey = (color, tr, radius) => {
+        if (tr == "") {
+            tr = 1;
+        }
+        tr = parseFloat(tr);
+
+        let c = [parseInt(color.split(',')[0].split('(')[1], 10),
+            parseInt(color.split(',')[1].split(',')[0], 10),
+            parseInt(color.split(',')[2].split(')')[0], 10)];
+
+        preview = photo.getPreview();
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(preview, 0, 0, preview.width, preview.height);
+        let imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+
+
+        photoBack = photo.getPreviewChroma();
+        let canvasOriBack = document.getElementById("canvasOriBack");
+        canvasOriBack.width = photoBack.width;
+        canvasOriBack.height = photoBack.height;
+        ctxOriBack = canvasOriBack.getContext('2d');
+        ctxOriBack.drawImage(photo.getPreviewChroma(), 0, 0, canvasOriBack.width, canvasOriBack.height);
+        let photoBackingData = ctxOriBack.getImageData(0, 0, preview.width, preview.height);
+
+
+        for (let i = 0; i < imgData.data.length; i += 4) {
+            let b = [imgData.data[i], imgData.data[i + 1], imgData.data[i + 2]];
+
+            if (photo.distance(c, b) <= radius) {
+                imgData.data[i] = photoBackingData.data[i];
+                imgData.data[i + 1] = photoBackingData.data[i + 1];
+                imgData.data[i + 2] = photoBackingData.data[i + 2];
+            } else {
+                imgData.data[i] = tr * imgData.data[i] + (1 - tr) * photoBackingData.data[i];
+                imgData.data[i + 1] = tr * imgData.data[i + 1] + (1 - tr) * photoBackingData.data[i + 1];
+                imgData.data[i + 2] = tr * imgData.data[i + 1] + (1 - tr) * photoBackingData.data[i + 2];
+            }
+        }
+        ctx.putImageData(imgData, 0, 0);
+    }
+
+    this.previewFile = () => {
+        let previewOriBack = document.getElementById('imgOriBack');
+        image = document.getElementById('backphoto').files[0];
+        let readerOriBack = new FileReader();
+
+        readerOriBack.onloadend = function () {
+            previewOriBack = document.createElement('img');
+            previewOriBack.src = readerOriBack.result;
+            previewOriBack.onload = function () {
+                var canvasOriBack = document.getElementById("canvasOriBack");
+                preview = photo.getPreview();
+                previewOriBack.width = preview.width;
+                previewOriBack.height = preview.height;
+                canvasOriBack.width = previewOriBack.width;
+                canvasOriBack.height = previewOriBack.height;
+                ctx = canvasOriBack.getContext('2d');
+                ctx.drawImage(previewOriBack, 0, 0, canvasOriBack.width, canvasOriBack.height);
+                photo.setChroma(previewOriBack);
+            }
+        }
+
+        if (image) {
+            readerOriBack.readAsDataURL(image); //reads the data as a URL
+        } else {
+            previewOriBack.src = "";
+        }
+    }
+
+    this.previewFileSub = () => {
+        let previewOriBack = document.getElementById('imgOriBack');
+        image = document.getElementById('subphoto').files[0];
+        let readerOriBack = new FileReader();
+
+        readerOriBack.onloadend = function () {
+            previewOriBack = document.createElement('img');
+            previewOriBack.src = readerOriBack.result;
+            previewOriBack.onload = function () {
+                var canvasOriBack = document.getElementById("canvasOriBack");
+                preview = photo.getPreview();
+                previewOriBack.width = preview.width;
+                previewOriBack.height = preview.height;
+                canvasOriBack.width = previewOriBack.width;
+                canvasOriBack.height = previewOriBack.height;
+                ctx = canvasOriBack.getContext('2d');
+                ctx.drawImage(previewOriBack, 0, 0, canvasOriBack.width, canvasOriBack.height);
+                photo.setChroma(previewOriBack);
+            }
+        }
+
+        if (image) {
+            readerOriBack.readAsDataURL(image); //reads the data as a URL
+        } else {
+            previewOriBack.src = "";
+        }
+    }
+
+    this.subtractImages = () => {
+        preview = photo.getPreview();
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(preview, 0, 0, preview.width, preview.height);
+        let imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+
+
+        photoBack = photo.getPreviewChroma();
+        let canvasOriBack = document.getElementById("canvasOriBack");
+        canvasOriBack.width = photoBack.width;
+        canvasOriBack.height = photoBack.height;
+        ctxOriBack = canvasOriBack.getContext('2d');
+        ctxOriBack.drawImage(photo.getPreviewChroma(), 0, 0, canvasOriBack.width, canvasOriBack.height);
+        let photoBackingData = ctxOriBack.getImageData(0, 0, preview.width, preview.height);
+
+        for (let i = 0; i < imgData.data.length; i += 4) {
+            imgData.data[i] = imgData.data[i] - photoBackingData.data[i];
+            imgData.data[i + 1] = imgData.data[i + 1] - photoBackingData.data[i + 1];
+            imgData.data[i + 2] = imgData.data[i + 2] - photoBackingData.data[i + 2];
+        }
+
+        ctx.putImageData(imgData, 0, 0);
+    }
+
+    this.threshold = (threshold) => {
+        threshold = parseFloat(threshold)
+
+        preview = photo.getPreview();
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(preview, 0, 0, preview.width, preview.height);
+        let imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+
+        for (let i = 0; i < imgData.data.length; i += 1) {
+            if (imgData.data[i] >= threshold) {
+                imgData.data[i] = 255
+            }
+            else {
+                imgData.data[i] = 0
+            }
+        }
+
+        ctx.putImageData(imgData, 0, 0);
     }
 }
 
