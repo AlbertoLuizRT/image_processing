@@ -17,6 +17,14 @@ function PhotoShop() {
         this._chroma = chromaPreview;
     };
 
+    this.setHaar = (matrix) => {
+        this.haar_matrix = matrix;
+    }
+
+    this.getHaar = () => {
+        return this.haar_matrix;
+    }
+
     this.distance = (a, b) => {
         let k = Math.pow((a[0] - b[0]), 2);
         let i = Math.pow((a[1] - b[1]), 2);
@@ -1324,6 +1332,118 @@ function PhotoShop() {
         }
 
         ctx.putImageData(imgData, 0, 0);
+    }
+
+    this.transformH = (vec) => {
+        let result = [];
+        for (var i = 0; i < vec.length/2; i++) {
+            result[i] = (vec[i*2] + vec[(i*2)+1]) / 2;
+            result[i+(vec.length/2)] = vec[i*2] - result[i];
+        }
+        return result;
+    }
+
+    this.haarLevelTrans = (haar_matrix, dim) => {
+        let hM = haar_matrix.slice()
+
+        for(let i=0; i<dim; i++) {
+            let lineR = photo.transformH(photo.getLineColor(hM, i, 0, dim))
+            let lineG = photo.transformH(photo.getLineColor(hM, i, 1, dim))
+            let lineB = photo.transformH(photo.getLineColor(hM, i, 2, dim))
+            for (let j = 0; j < dim; j++) {
+                hM[i][j][0] = lineR[j]
+                hM[i][j][1] = lineG[j]
+                hM[i][j][2] = lineB[j]
+            }
+        }
+
+        for (let i = 0; i < dim; i++) {
+            let colR = photo.transformH(photo.getColumnColor(hM, i, 0, dim))
+            let colG = photo.transformH(photo.getColumnColor(hM, i, 1, dim))
+            let colB = photo.transformH(photo.getColumnColor(hM, i, 2, dim))
+            for (let j = 0; j < dim; j++) {
+                hM[j][i][0] = colR[j]
+                hM[j][i][1] = colG[j]
+                hM[j][i][2] = colB[j]
+            }
+        }
+
+        return hM
+    }
+
+
+    this.haarTrans = (level) => {
+        preview = photo.getPreview();
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(preview, 0, 0,preview.width, preview.height );
+        var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+
+        if (Math.pow(2,level) > preview.width) {
+            console.log("Erro: muitos niveis")
+        } else {
+            let haar_matrix = photo.toMatrix(imgData.data, preview.height, preview.width)
+            for(let i=0; i<level; i++) {
+                let dim = preview.height/Math.pow(2,i)
+                let tr_matrix = photo.haarLevelTrans(haar_matrix, dim)
+                for(let x=0; x<dim; x++) {
+                    for(let y=0; y<dim; y++) {
+                        for(let k=0; k<3; k++) {
+                            haar_matrix[x][y][k] = tr_matrix[x][y][k]
+                        }
+                    }
+                }
+            }
+            this.setHaar(haar_matrix);
+            let A = photo.toArray(haar_matrix, preview.height, preview.width)
+            for (let i = 0; i < A.length; i++) {
+                imgData.data[i] = A[i]
+            }
+            ctxt.putImageData(imgData,0,0);
+        }
+    }
+
+    this.toMatrix = (array, height, width) => {
+        let haar_matrix = new Array(height)
+        for (let i = 0; i < height; i++) {
+            haar_matrix[i] = new Array(width)
+            for (let j = 0; j < width; j++) {
+                haar_matrix[i][j] = new Array(4)
+                let pos = ((i * width) + j) * 4
+                for (let k = 0; k < 4; k++) {
+                    haar_matrix[i][j][k] = array[pos + k]
+                }
+            }
+        }
+        return haar_matrix
+    }
+
+    this.toArray = (haar_matrix, height, width) => {
+        let A = new Array(height * width * 4)
+        for (let i = 0; i < height; i++) {
+            for (let j = 0; j < width; j++) {
+                let pos = ((i * width) + j) * 4
+                for (let k = 0; k < 4; k++) {
+                    A[pos + k] = haar_matrix[i][j][k]
+                }
+            }
+        }
+        return A
+    }
+
+    this.getLineColor = (haar_matrix, index, color, dim) => {
+        let L = []
+        for (var i = 0; i < dim; i++) {
+            L[i] = haar_matrix[index][i][color]
+        }
+        return L
+    }
+
+    this.getColumnColor = (haar_matrix, index, color, dim) => {
+        let C = []
+        for (var i = 0; i < dim; i++) {
+            C[i] = haar_matrix[i][index][color]
+        }
+        return C
     }
 }
 

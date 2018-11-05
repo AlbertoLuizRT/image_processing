@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a15ee020-e3a0-4de5-95b5-b1bb9a5e852c" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/filters.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/filters.js" afterDir="false" />
     </list>
@@ -18,36 +19,37 @@
     <session id="1567859656">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.4" value="1" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.6" value="1" />
-          <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.open.time.7" value="2" />
+          <entry key="project.open.time.8" value="1" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="348" />
-          <entry key="js" value="1183" />
+          <entry key="html" value="402" />
+          <entry key="js" value="1844" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="348" />
-          <entry key="JavaScript" value="1183" />
+          <entry key="HTML" value="402" />
+          <entry key="JavaScript" value="1844" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="html" value="1" />
-          <entry key="js" value="1" />
+          <entry key="js" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="HTML" value="1" />
-          <entry key="JavaScript" value="1" />
+          <entry key="JavaScript" value="3" />
         </counts>
       </usages-collector>
     </session>
@@ -64,15 +66,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/css/custom.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="27" column="1" selection-start-line="27" selection-start-column="1" selection-end-line="27" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
@@ -84,8 +77,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/filters.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="1318" column="37" lean-forward="true" selection-start-line="1318" selection-start-column="37" selection-end-line="1318" selection-end-column="37" />
+            <state relative-caret-position="68">
+              <caret line="1391" column="25" lean-forward="true" selection-start-line="1391" selection-start-column="25" selection-end-line="1391" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -102,11 +95,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="240" column="102" lean-forward="true" selection-start-line="240" selection-start-column="102" selection-end-line="240" selection-end-column="102" />
-              <folding>
-                <element signature="n#style#0;n#input#0;n#p#8;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="-127">
+              <caret line="243" column="37" lean-forward="true" selection-start-line="243" selection-start-column="37" selection-end-line="243" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -127,7 +117,6 @@
       <find>min</find>
       <find>max</find>
       <find>ctxt</find>
-      <find>util</find>
       <find>onloadend</find>
       <find>canvasOriBack</find>
       <find>canvasAlter</find>
@@ -137,6 +126,7 @@
       <find>geometricMean</find>
       <find>rest</find>
       <find>conv</find>
+      <find>util</find>
     </findStrings>
     <replaceStrings>
       <replace>let</replace>
@@ -159,6 +149,7 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/js/array.js" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/js/util.js" />
         <option value="$PROJECT_DIR$/js/filters.js" />
       </list>
     </option>
@@ -177,7 +168,6 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1920" />
     <option name="y" value="27" />
     <option name="width" value="1920" />
     <option name="height" value="1004" />
@@ -247,15 +237,17 @@
       <workItem from="1536583797826" duration="1171000" />
       <workItem from="1538347009791" duration="865000" />
       <workItem from="1538389065824" duration="2461000" />
-      <workItem from="1539945207286" duration="4321000" />
+      <workItem from="1539945207286" duration="4444000" />
+      <workItem from="1539954661090" duration="894000" />
+      <workItem from="1541408853238" duration="1881000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18468000" />
+    <option name="totallyTimeSpent" value="21366000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1920" y="27" width="1920" height="1004" extended-state="0" />
+    <frame x="0" y="27" width="1920" height="1004" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24934107" />
@@ -321,17 +313,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/css/custom.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="1" selection-start-line="27" selection-start-column="1" selection-end-line="27" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/custom.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-517">
+          <caret line="27" column="1" selection-start-line="27" selection-start-column="1" selection-end-line="27" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-127">
+          <caret line="243" column="37" lean-forward="true" selection-start-line="243" selection-start-column="37" selection-end-line="243" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -342,6 +341,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/js/util.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/array.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -349,20 +355,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="240" column="102" lean-forward="true" selection-start-line="240" selection-start-column="102" selection-end-line="240" selection-end-column="102" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#p#8;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/filters.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="1318" column="37" lean-forward="true" selection-start-line="1318" selection-start-column="37" selection-end-line="1318" selection-end-column="37" />
+        <state relative-caret-position="68">
+          <caret line="1391" column="25" lean-forward="true" selection-start-line="1391" selection-start-column="25" selection-end-line="1391" selection-end-column="25" />
         </state>
       </provider>
     </entry>
