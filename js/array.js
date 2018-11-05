@@ -5,3 +5,7 @@ Array.prototype.max = function() {
 Array.prototype.min = function() {
     return Math.min.apply(null, this);
 };
+
+Array.prototype.add = function() {
+    return this.reduce((a, b) => a + b, 0);
+}

@@ -1336,9 +1336,9 @@ function PhotoShop() {
 
     this.transformH = (vec) => {
         let result = [];
-        for (var i = 0; i < vec.length/2; i++) {
-            result[i] = (vec[i*2] + vec[(i*2)+1]) / 2;
-            result[i+(vec.length/2)] = vec[i*2] - result[i];
+        for (var i = 0; i < vec.length / 2; i++) {
+            result[i] = (vec[i * 2] + vec[(i * 2) + 1]) / 2;
+            result[i + (vec.length / 2)] = vec[i * 2] - result[i];
         }
         return result;
     }
@@ -1346,7 +1346,7 @@ function PhotoShop() {
     this.haarLevelTrans = (haar_matrix, dim) => {
         let hM = haar_matrix.slice()
 
-        for(let i=0; i<dim; i++) {
+        for (let i = 0; i < dim; i++) {
             let lineR = photo.transformH(photo.getLineColor(hM, i, 0, dim))
             let lineG = photo.transformH(photo.getLineColor(hM, i, 1, dim))
             let lineB = photo.transformH(photo.getLineColor(hM, i, 2, dim))
@@ -1375,19 +1375,19 @@ function PhotoShop() {
     this.haarTrans = (level) => {
         preview = photo.getPreview();
         ctx = canvas.getContext('2d');
-        ctx.drawImage(preview, 0, 0,preview.width, preview.height );
+        ctx.drawImage(preview, 0, 0, preview.width, preview.height);
         var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
 
-        if (Math.pow(2,level) > preview.width) {
+        if (Math.pow(2, level) > preview.width) {
             console.log("Erro: muitos niveis")
         } else {
             let haar_matrix = photo.toMatrix(imgData.data, preview.height, preview.width)
-            for(let i=0; i<level; i++) {
-                let dim = preview.height/Math.pow(2,i)
+            for (let i = 0; i < level; i++) {
+                let dim = preview.height / Math.pow(2, i)
                 let tr_matrix = photo.haarLevelTrans(haar_matrix, dim)
-                for(let x=0; x<dim; x++) {
-                    for(let y=0; y<dim; y++) {
-                        for(let k=0; k<3; k++) {
+                for (let x = 0; x < dim; x++) {
+                    for (let y = 0; y < dim; y++) {
+                        for (let k = 0; k < 3; k++) {
                             haar_matrix[x][y][k] = tr_matrix[x][y][k]
                         }
                     }
@@ -1398,7 +1398,7 @@ function PhotoShop() {
             for (let i = 0; i < A.length; i++) {
                 imgData.data[i] = A[i]
             }
-            ctxt.putImageData(imgData,0,0);
+            ctx.putImageData(imgData, 0, 0);
         }
     }
 
@@ -1444,6 +1444,80 @@ function PhotoShop() {
             C[i] = haar_matrix[i][index][color]
         }
         return C
+    }
+
+    this.calculateEnergy = (matrix) => {
+        let quad = matrix.length / 2;
+
+        let sumq1 = 0;
+        let sumq2 = 0;
+        let sumq3 = 0;
+        let sumq4 = 0;
+        let q1;
+        let q2;
+        let q3;
+        let q4;
+
+        for (var h = 0; h < quad; h++) {
+            for (var w = 0; w < quad; w++) {
+                for (let k = 0; k < 3; k++) {
+                    q1[h][w][k] = matrix[h][w][k];
+                    sumq1 += Math.abs(matrix[h][w][k] - 127)
+                }
+            }
+        }
+
+        for (var h = quad, i = 0; h < matrix.length; h++, i++) {
+            for (var w = 0; w < quad; w++) {
+                for (let k = 0; k < 3; k++) {
+                    q2[i][w][k] = matrix[h][w][k];
+                    sumq2 += Math.abs(matrix[h][w][k] - 127);
+                }
+            }
+        }
+
+        for (var h = 0; h < quad; h++) {
+            for (var w = quad, j =0; w < matrix.length; w++, j++) {
+                for (let k = 0; k < 3; k++) {
+                    q3[h][j][k] = matrix[h][w][k];
+                    sumq3 += Math.abs(matrix[h][w][k] - 127);
+                }
+            }
+        }
+
+        for (var h = quad, i = 0; h < matrix.length; h++, i++) {
+            for (var w = quad, j = 0; w < matrix.length; w++, j++) {
+                for (let k = 0; k < 3; k++) {
+                    q4[i][j][k] = matrix[h][w][k];
+                    sumq4 += Math.abs(matrix[h][w][k] - 127);
+                }
+            }
+        }
+
+        return sumq1, q1, sumq2, q2, sumq3, q3, sumq4, q4;
+
+    }
+
+    this.haarEnergyDecompostition = () => {
+        preview = photo.getPreview();
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(preview, 0, 0, preview.width, preview.height);
+        var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+
+        let haar_matrix = photo.toMatrix(imgData.data, preview.height, preview.width)
+
+        let tr_matrix = photo.haarLevelTrans(haar_matrix, preview.height)
+        for (let x = 0; x < preview.height; x++) {
+            for (let y = 0; y < preview.height; y++) {
+                for (let k = 0; k < 3; k++) {
+                    haar_matrix[x][y][k] = tr_matrix[x][y][k]
+                }
+            }
+        }
+
+        // Initial Haar matrix done, must check energy for each quadrant's energy (recursively)
+
+
     }
 }
 
