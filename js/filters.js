@@ -1343,6 +1343,15 @@ function PhotoShop() {
         return result;
     }
 
+    this.transformBack = function(vec){
+        let result = [];
+        for (var i = 0; i < vec.length/2; i++) {
+            result[i*2] = vec[i] + vec[i+(vec.length/2)];
+            result[(i*2)+1] = vec[i] - vec[i+(vec.length/2)];
+        }
+        return result;
+    }
+
     this.haarLevelTrans = (haar_matrix, dim) => {
         let hM = haar_matrix.slice()
 
@@ -1400,6 +1409,63 @@ function PhotoShop() {
             }
             ctx.putImageData(imgData, 0, 0);
         }
+    }
+
+    this.haarTransBack = (level, actual) => {
+        actual = actual-1
+        preview = photo.getPreview();
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(preview, 0, 0,preview.width, preview.height );
+        var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+
+        let haar_matrix = this.getHaar()
+
+        for(let i=actual; i>=level; i--) {
+            let dim = preview.height/Math.pow(2,i)
+            let bk_matrix = photo.haarBackLevel(haar_matrix, dim)
+            for(let x=0; x<dim; x++) {
+                for(let y=0; y<dim; y++) {
+                    for(let k=0; k<3; k++) {
+                        haar_matrix[x][y][k] = bk_matrix[x][y][k]
+                    }
+                }
+            }
+        }
+
+        let A = photo.toArray(haar_matrix, preview.height, preview.width)
+        for (let i = 0; i < A.length; i++) {
+            imgData.data[i] = A[i]
+        }
+
+        ctx.putImageData(imgData,0,0);
+    }
+
+    this.haarBackLevel = (haar_matrix, dim) => {
+        let hM = haar_matrix.slice()
+
+        for (let i = 0; i < dim; i++) {
+            let colR = photo.transformBack(photo.getColumnColor(hM, i, 0, dim))
+            let colG = photo.transformBack(photo.getColumnColor(hM, i, 1, dim))
+            let colB = photo.transformBack(photo.getColumnColor(hM, i, 2, dim))
+            for (let j = 0; j < dim; j++) {
+                hM[j][i][0] = colR[j]
+                hM[j][i][1] = colG[j]
+                hM[j][i][2] = colB[j]
+            }
+        }
+
+        for(let i=0; i<dim; i++) {
+            let lineR = photo.transformBack(photo.getLineColor(hM, i, 0, dim))
+            let lineG = photo.transformBack(photo.getLineColor(hM, i, 1, dim))
+            let lineB = photo.transformBack(photo.getLineColor(hM, i, 2, dim))
+            for (let j = 0; j < dim; j++) {
+                hM[i][j][0] = lineR[j]
+                hM[i][j][1] = lineG[j]
+                hM[i][j][2] = lineB[j]
+            }
+        }
+
+        return hM;
     }
 
     this.toMatrix = (array, height, width) => {

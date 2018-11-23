@@ -251,6 +251,15 @@
                             </button>
                         </p>
 
+                        <p>
+                            <input id="haarBackLevel" type="text" size=20 placeholder="Nível de Volta">
+                            <input id="haarBackImg" type="text" size=20 placeholder="Nível da Imagem">
+                            <button class="btn btn-primary"
+                                    onclick='photo.haarTransBack(document.getElementById("haarBackLevel").value,
+                                    document.getElementById("haarBackImg").value)'>Haar Trans Inversa
+                            </button>
+                        </p>
+
                         <div class="tab-pane" id="2">
                             <p>
                                 <button class="btn btn-primary" onclick='hist.histogram()'>Histograma</button>
