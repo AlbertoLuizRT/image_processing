@@ -526,9 +526,9 @@ function PhotoShop() {
             }
         }
         preview = photo.getPreview();
-        ctxt = canvas.getContext('2d');
-        ctxt.drawImage(photo.getPreview(), 0, 0, preview.width, preview.height);
-        var imgData = ctxt.getImageData(0, 0, preview.width, preview.height);
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(photo.getPreview(), 0, 0, preview.width, preview.height);
+        var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
 
 
         var auxData = new Array(imgData.data.length);
@@ -565,7 +565,7 @@ function PhotoShop() {
             }
         }
         console.log('Done with Art Mean');
-        ctxt.putImageData(imgData, 0, 0);
+        ctx.putImageData(imgData, 0, 0);
 
     };
 
@@ -580,9 +580,9 @@ function PhotoShop() {
             }
         }
         preview = photo.getPreview();
-        ctxt = canvas.getContext('2d');
-        ctxt.drawImage(photo.getPreview(), 0, 0, preview.width, preview.height);
-        var imgData = ctxt.getImageData(0, 0, preview.width, preview.height);
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(photo.getPreview(), 0, 0, preview.width, preview.height);
+        var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
 
 
         var auxData = new Array(imgData.data.length);
@@ -625,7 +625,7 @@ function PhotoShop() {
             }
         }
         console.log('Done with Geo Mean');
-        ctxt.putImageData(imgData, 0, 0);
+        ctx.putImageData(imgData, 0, 0);
 
     };
 
@@ -643,9 +643,9 @@ function PhotoShop() {
         nn = Math.round(Math.sqrt(n));
         nm = Math.round(Math.sqrt(m));
         preview = photo.getPreview();
-        ctxt = canvas.getContext('2d');
-        ctxt.drawImage(photo.getPreview(), 0, 0, preview.width, preview.height);
-        var imgData = ctxt.getImageData(0, 0, preview.width, preview.height);
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(photo.getPreview(), 0, 0, preview.width, preview.height);
+        var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
 
 
         var auxData = new Array(imgData.data.length);
@@ -682,7 +682,7 @@ function PhotoShop() {
             }
         }
         console.log('Done with Harmonic');
-        ctxt.putImageData(imgData, 0, 0);
+        ctx.putImageData(imgData, 0, 0);
 
     };
 
@@ -700,9 +700,9 @@ function PhotoShop() {
         nn = Math.round(Math.sqrt(n));
         nm = Math.round(Math.sqrt(m));
         preview = photo.getPreview();
-        ctxt = canvas.getContext('2d');
-        ctxt.drawImage(photo.getPreview(), 0, 0, preview.width, preview.height);
-        var imgData = ctxt.getImageData(0, 0, preview.width, preview.height);
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(photo.getPreview(), 0, 0, preview.width, preview.height);
+        var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
 
 
         var auxData = new Array(imgData.data.length);
@@ -744,7 +744,7 @@ function PhotoShop() {
             }
         }
         console.log('Done with Counter Harmonic');
-        ctxt.putImageData(imgData, 0, 0);
+        ctx.putImageData(imgData, 0, 0);
 
     };
 
@@ -762,9 +762,9 @@ function PhotoShop() {
         nn = Math.round(Math.sqrt(n));
         nm = Math.round(Math.sqrt(m));
         preview = photo.getPreview();
-        ctxt = canvas.getContext('2d');
-        ctxt.drawImage(photo.getPreview(), 0, 0, preview.width, preview.height);
-        var imgData = ctxt.getImageData(0, 0, preview.width, preview.height);
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(photo.getPreview(), 0, 0, preview.width, preview.height);
+        var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
 
 
         var auxData = new Array(imgData.data.length);
@@ -801,7 +801,7 @@ function PhotoShop() {
             }
         }
         console.log('Done with Median');
-        ctxt.putImageData(imgData, 0, 0);
+        ctx.putImageData(imgData, 0, 0);
     };
 
     this.restorationMax = (xy, callback) => {
@@ -818,9 +818,9 @@ function PhotoShop() {
         nn = Math.round(Math.sqrt(n));
         nm = Math.round(Math.sqrt(m));
         preview = photo.getPreview();
-        ctxt = canvas.getContext('2d');
-        ctxt.drawImage(photo.getPreview(), 0, 0, preview.width, preview.height);
-        var imgData = ctxt.getImageData(0, 0, preview.width, preview.height);
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(photo.getPreview(), 0, 0, preview.width, preview.height);
+        var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
 
 
         var auxData = new Array(imgData.data.length);
@@ -859,7 +859,7 @@ function PhotoShop() {
             }
         }
         console.log('Done with Max');
-        ctxt.putImageData(imgData, 0, 0);
+        ctx.putImageData(imgData, 0, 0);
         callback(imgData);
     };
 
@@ -877,9 +877,9 @@ function PhotoShop() {
         nn = Math.round(Math.sqrt(n));
         nm = Math.round(Math.sqrt(m));
         preview = photo.getPreview();
-        ctxt = canvas.getContext('2d');
-        ctxt.drawImage(photo.getPreview(), 0, 0, preview.width, preview.height);
-        var imgData = ctxt.getImageData(0, 0, preview.width, preview.height);
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(photo.getPreview(), 0, 0, preview.width, preview.height);
+        var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
 
 
         var auxData = new Array(imgData.data.length);
@@ -918,7 +918,7 @@ function PhotoShop() {
             }
         }
         console.log('Done with Min');
-        ctxt.putImageData(imgData, 0, 0);
+        ctx.putImageData(imgData, 0, 0);
         callback(imgData);
 
     };
@@ -927,9 +927,9 @@ function PhotoShop() {
         photo.restorationMin(xy, function (imgMin) {
             photo.restorationMax(xy, function (imgMax) {
                 preview = photo.getPreview();
-                ctxt = canvas.getContext('2d');
-                ctxt.drawImage(photo.getPreview(), 0, 0, preview.width, preview.height);
-                var imgData = ctxt.getImageData(0, 0, preview.width, preview.height);
+                ctx = canvas.getContext('2d');
+                ctx.drawImage(photo.getPreview(), 0, 0, preview.width, preview.height);
+                var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
                 for (var i = 1; i < preview.height - 1; i++) {
                     for (var j = 1; j < preview.width - 1; j++) {
                         var pos = ((i * preview.width) + j) * 4;
@@ -939,7 +939,7 @@ function PhotoShop() {
                     }
                 }
                 console.log('Done with Mid Point');
-                ctxt.putImageData(imgData, 0, 0);
+                ctx.putImageData(imgData, 0, 0);
             });
         });
     };
@@ -1190,7 +1190,7 @@ function PhotoShop() {
             imgData.data[i + 2] = b[2];
 
         }
-        ctxt.putImageData(imgData, 0, 0);
+        ctx.putImageData(imgData, 0, 0);
     }
 
     this.chromaKey = (color, tr, radius) => {
@@ -1584,6 +1584,542 @@ function PhotoShop() {
         // Initial Haar matrix done, must check energy for each quadrant's energy (recursively)
 
 
+    }
+
+    this.fileHuffman = function () {
+        file = document.getElementById("huffman").files[0];
+        var reader = new FileReader();
+        reader.readAsArrayBuffer(file);
+        reader.onloadend = function () {
+            console.log('loading done');
+            file = (reader.result);
+            uint = new Uint8Array(file);
+            var image = Huffman.parseUint8arrayToData(uint);
+
+            preview = document.createElement('img');
+            preview.width = image.width;
+            preview.height = image.height;
+
+            canvas.width = preview.width;
+            canvas.height = preview.height;
+            ctx = canvas.getContext('2d');
+            ctx.drawImage(preview, canvas.width, 0, canvas.width, canvas.height);
+            var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+
+            var huffmanR = Huffman.Tree.decodeTree(JSON.parse(image.huffmanRTree));
+            var huffmanG = Huffman.Tree.decodeTree(JSON.parse(image.huffmanGTree));
+            var huffmanB = Huffman.Tree.decodeTree(JSON.parse(image.huffmanBTree));
+            var huffmanRdecode = huffmanR.decode(image.huffmanREncode);
+            var huffmanGdecode = huffmanG.decode(image.huffmanGEncode);
+            var huffmanBdecode = huffmanB.decode(image.huffmanBEncode);
+
+
+            for (var i = 0, j = 0; i < imgData.data.length; i += 4, j += 1) {
+                imgData.data[i] = huffmanRdecode[j];
+                imgData.data[i + 1] = huffmanGdecode[j];
+                imgData.data[i + 2] = huffmanBdecode[j];
+                imgData.data[i + 3] = 255;
+            }
+            ctx.putImageData(imgData, 0, 0);
+        }
+
+    }
+    this.huffman = function () {
+        preview = this.getPreview();
+
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(preview, 0, 0, preview.width, preview.height);
+        var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+        var r = [];
+        var g = [];
+        var b = [];
+        for (var i = 0, j = 0; i < imgData.data.length; i += 4, j += 1) {
+            r[j] = (imgData.data[i]);
+            g[j] = (imgData.data[i + 1]);
+            b[j] = (imgData.data[i + 2]);
+        }
+        var huffmanR = Huffman.treeFromImage(r);
+        var huffmanG = Huffman.treeFromImage(g);
+        var huffmanB = Huffman.treeFromImage(b);
+        var huffmanRencode = huffmanR.encode(r);
+        var huffmanGencode = huffmanG.encode(g);
+        var huffmanBencode = huffmanB.encode(b);
+        var huffmanRTreeEncode = huffmanR.encodeTree();
+        var huffmanGTreeEncode = huffmanG.encodeTree();
+        var huffmanBTreeEncode = huffmanB.encodeTree();
+        var file = Huffman.parseDataToUint8array(preview.width,
+            preview.height,
+            huffmanRTreeEncode,
+            huffmanGTreeEncode,
+            huffmanBTreeEncode,
+            huffmanRencode,
+            huffmanGencode,
+            huffmanBencode);
+
+        var data = new Blob([file]);
+        var a2 = document.getElementById("a2");
+        a2.href = URL.createObjectURL(data);
+
+        ctx.putImageData(imgData, 0, 0);
+    }
+
+    this.lzw = function () {
+        preview = this.getPreview();
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(preview, 0, 0, preview.width, preview.height);
+        var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+
+        var r = [];
+        var g = [];
+        var b = [];
+        for (var i = 0, j = 0; i < imgData.data.length; i += 4, j += 1) {
+            r[j] = (imgData.data[i]);
+            g[j] = (imgData.data[i + 1]);
+            b[j] = (imgData.data[i + 2]);
+        }
+
+        r_seq = this.lzw_encode(r)
+        g_seq = this.lzw_encode(g)
+        b_seq = this.lzw_encode(b)
+        var string = "";
+        for(i in r_seq){
+            string+=String(i)
+        }
+        for(i in g_seq){
+            string+=String(i)
+        }
+        for(i in b_seq){
+            string+=String(i)
+        }
+        var uint = new Uint8Array(string.length);
+        var index = 0;
+        for(i in string){
+            uint[index] = i.charCodeAt(0);
+            index++;
+        }
+        var file = uint;
+        var data = new Blob([file]);
+        var r4 = document.getElementById("r4");
+        r4.href = URL.createObjectURL(data);
+        console.log("Done")
+
+        ctx.putImageData(imgData, 0, 0);
+    }
+    this.run_length = function () {
+        preview = this.getPreview();
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(this.getPreview(), 0, 0,preview.width, preview.height );
+        var imgData=ctx.getImageData(0, 0, preview.width, preview.height);
+        var r = [];
+        var g = [];
+        var b = [];
+        for(var i=0,j=0; i<imgData.data.length; i+=4,j+=1) {
+            r[j] = (imgData.data[i]);
+            g[j] = (imgData.data[i+1]);
+            b[j] = (imgData.data[i+2]);
+        }
+        var run_lengthR = run.encode(r);
+        var run_lengthG = run.encode(g);
+        var run_lengthB = run.encode(b);
+        var lengthR = String(run_lengthR.length);
+        var lengthG = String(run_lengthG.length);
+        var lengthB = String(run_lengthB.length);
+
+        var uint = new Uint8Array(lengthR.length+
+            lengthG.length+
+            lengthB.length+
+            ( 2*run_lengthR.length)+(2*run_lengthG.length)+(2*run_lengthB.length));
+        var indexuint = 0;
+        uint[indexuint]=lengthR.length;//.charCodeAt(j);
+        indexuint++;
+        uint[indexuint]=lengthG.length;//.charCodeAt(j);
+        indexuint++;
+        uint[indexuint]=lengthB.length;//.charCodeAt(j);
+        indexuint++;
+        for(let j=0;j<lengthR.length;j++){
+            uint[indexuint]=lengthR[j];//.charCodeAt(j);
+            indexuint++;
+        }
+        for(let j=0;j<lengthG.length;j++){
+            uint[indexuint]=lengthG[j];//.charCodeAt(j);
+            indexuint++;
+        }
+        for(let j=0;j<lengthB.length;j++){
+            uint[indexuint]=lengthB[j];//.charCodeAt(j);
+            indexuint++;
+        }
+
+        for(let j=0;j<run_lengthR.length;j++){
+            uint[indexuint]=run_lengthR[j][0];//.charCodeAt(j);
+            indexuint++;
+            uint[indexuint]=run_lengthR[j][1];//.charCodeAt(j);
+            indexuint++;
+        }
+        for(let j=0;j<run_lengthG.length;j++){
+            uint[indexuint]=run_lengthG[j][0];//.charCodeAt(j);
+            indexuint++;
+            uint[indexuint]=run_lengthG[j][1];//.charCodeAt(j);
+            indexuint++;
+        }
+        for(let j=0;j<run_lengthB.length;j++){
+            uint[indexuint]=run_lengthB[j][0];//.charCodeAt(j);
+            indexuint++;
+            uint[indexuint]=run_lengthB[j][1];//.charCodeAt(j);
+            indexuint++;
+        }
+
+        uint[indexuint]=String(preview.width).length;//.charCodeAt(j);
+        indexuint++;
+        uint[indexuint]=String(preview.height).length;//.charCodeAt(j);
+        indexuint++;
+        for(let j=0;j<String(preview.width).length;j++){
+            uint[indexuint]=String(preview.width)[j];//.charCodeAt(j);
+            indexuint++;
+        }
+        for(let j=0;j<String(preview.height).length;j++){
+            uint[indexuint]=String(preview.height)[j];//.charCodeAt(j);
+            indexuint++;
+        }
+        var file = uint;
+
+        var data = new Blob([file]);
+        var r2 = document.getElementById("r2");
+        r2.href = URL.createObjectURL(data);
+        ctx.putImageData(imgData, 0, 0);
+    }
+
+
+    this.fileRun_Length = function () {
+        file = document.getElementById("run_length").files[0]; //sames as here
+        var reader = new FileReader();
+        reader.readAsArrayBuffer(file); //reads the data as a txt
+        reader.onloadend = function () {
+
+            file = (reader.result);
+            uint = new Uint8Array(file);
+            var indexuint = 0;
+            var lenR = uint[indexuint];
+            indexuint++;
+            var lenG = uint[indexuint];
+            indexuint++;
+            var lenB = uint[indexuint];
+            var lengthR = "";
+            var lengthG = "";
+            var lengthB = "";
+            for(let j=0;j<parseInt(lenR);j++){
+                lengthR+=uint[indexuint];
+                indexuint++;
+            }
+            for(let j=0;j<parseInt(lenG);j++){
+                lengthG+=uint[indexuint];
+                indexuint++;
+            }
+            for(let j=0;j<parseInt(lenB);j++){
+                lengthB+=uint[indexuint];
+                indexuint++;
+            }
+            var r_encode = [];
+            var g_encode = [];
+            var b_encode = [];
+            for(let j=0;j<parseInt(lengthR);j++){
+                let value =[];
+                value.push(uint[indexuint]);
+                indexuint++;
+                value.push(uint[indexuint]);
+                indexuint++;
+                r_encode.push(value);
+            }
+            for(let j=0;j<parseInt(lengthG);j++){
+                let value =[];
+                value.push(uint[indexuint]);
+                indexuint++;
+                value.push(uint[indexuint]);
+                indexuint++;
+                g_encode.push(value);
+            }
+            for(let j=0;j<parseInt(lengthB);j++){
+                let value =[];
+                value.push(uint[indexuint]);
+                indexuint++;
+                value.push(uint[indexuint]);
+                indexuint++;
+                b_encode.push(value);
+            }
+
+            var r = run.decode(r_encode);
+            var g = run.decode(g_encode);
+            var b = run.decode(b_encode);
+
+
+            var image = {};
+            var lenWidth = uint[indexuint];//.charCodeAt(j);
+            indexuint++;
+            var lenHeight = uint[indexuint];//.charCodeAt(j);
+            indexuint++;
+            var width ="";
+            var height ="";
+            for(let j=0;j<parseInt(lenWidth);j++){
+                width+= uint[indexuint]
+                indexuint++;
+            }
+            for(let j=0;j<parseInt(lenHeight);j++){
+                height+= uint[indexuint]
+                indexuint++;
+            }
+            image.width=parseInt(width)
+            image.height=parseInt(height)
+
+
+            preview = document.createElement('img');
+            preview.width = image.width;
+            preview.height = image.height;
+
+            canvas.width = preview.width;
+            canvas.height = preview.height;
+            ctx = canvas.getContext('2d');
+            ctx.drawImage(preview, canvas.width, 0, canvas.width, canvas.height);
+            var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+
+
+            for (var i = 0, j = 0; i < imgData.data.length; i += 4, j += 1) {
+                imgData.data[i] = r[j];
+                imgData.data[i + 1] = g[j];
+                imgData.data[i + 2] = b[j];
+                imgData.data[i + 3] = 255;
+            }
+            console.log('done');
+            ctx.putImageData(imgData, 0, 0);
+        }
+
+    }
+
+    this.lzw_encode = function (data) {
+        //data é um vetor
+        //usando imagens o dict deve ser iniciado com os valores 0 .. 255
+        let dict = [];
+        for (let i = 0; i < 256; i++) {
+            stringfied = i.toString()
+            if (stringfied.length == 1)
+                stringfied = "00" + stringfied
+            if (stringfied.length == 2)
+                stringfied = "0" + stringfied
+            dict[i] = stringfied
+        }
+        let word = ""
+        let next_id = 256
+        let seq = new Array()
+        for (let i = 0; i < data.length; i++) {
+            data[i] = data[i].toString();
+        }
+
+        // var objdict = Object.values(dict);
+        for (let i = 0; i < data.length; i++) {
+            let next_char = data[i]
+
+            if (next_char.length == 1)
+                next_char = "00" + next_char
+            if (next_char.length == 2)
+                next_char = "0" + next_char
+
+            if (dict.indexOf(word + next_char) >= 0) {
+                word += next_char
+            } else {
+                seq.push(dict.indexOf(word))
+                dict[next_id++] = word + next_char
+                word = next_char
+            }
+        }
+        seq.push(dict.indexOf(word))
+        console.log(seq.length)
+        console.log('done');
+        return seq
+    }
+
+
+    this.lzw_decode = function (data) {
+        //let data = [3, 1, 4, 6, 5, 8, 3]
+        let dict = {}
+        for (let i = 0; i < 256; i++) {
+            stringfied = i.toString()
+            if (stringfied.length == 1)
+                stringfied = "00" + stringfied
+            if (stringfied.length == 2)
+                stringfied = "0" + stringfied
+            dict[i] = stringfied
+        }
+
+        let seq = new Array()
+        let next_code = data[0]
+        seq.push(dict[next_code])
+        let code = ""
+        let next_id = 256
+        for (let i = 1; i < data.length; i++) {
+            code = next_code
+            next_code = data[i]
+
+            if (dict[next_code]) {
+                seq.push(dict[next_code])
+                let word = dict[code]
+                let next_char = (dict[next_code]).substring(0,3)
+                dict[next_id++] = word + next_char
+            } else {
+                let word = dict[code]
+                let next_char = (dict[code]).substring(0,3)
+                seq.push(word + next_char)
+                dict[next_id++] = word + next_char
+            }
+        }
+
+        let sequencia = new Array()
+        for(let i=0; i<seq.length; i++){
+            for(let j=0; j<seq[i].length; j+=3){
+                sequencia.push(parseInt(seq[i].substring(j, j+3)))
+            }
+        }
+
+        return sequencia
+    }
+
+    this.huffman_run_length = function () {
+        preview = this.getPreview();
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(this.getPreview(), 0, 0, preview.width, preview.height);
+        var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+
+        var r = [];
+        var g = [];
+        var b = [];
+        for (var i = 0, j = 0; i < imgData.data.length; i += 4, j += 1) {
+            r[j] = (imgData.data[i]);
+            g[j] = (imgData.data[i + 1]);
+            b[j] = (imgData.data[i + 2]);
+        }
+
+        r_run = run.encode(r);
+        g_run = run.encode(g);
+        b_run = run.encode(b);
+
+        console.log(r.length)
+        console.log(r_run.length)
+        console.log(g.length)
+        console.log(g_run.length)
+        console.log(b.length)
+        console.log(b_run.length)
+
+        var huffmanR = Huffman.treeFromImage(r_run);
+        var huffmanG = Huffman.treeFromImage(g_run);
+        var huffmanB = Huffman.treeFromImage(b_run);
+        var huffmanRencode = huffmanR.encode(r_run);
+        var huffmanGencode = huffmanG.encode(g_run);
+        var huffmanBencode = huffmanB.encode(b_run);
+        var huffmanRTreeEncode = huffmanR.encodeTree();
+        var huffmanGTreeEncode = huffmanG.encodeTree();
+        var huffmanBTreeEncode = huffmanB.encodeTree();
+        var file = Huffman.parseDataToUint8array(preview.width,
+            preview.height,
+            huffmanRTreeEncode,
+            huffmanGTreeEncode,
+            huffmanBTreeEncode,
+            huffmanRencode,
+            huffmanGencode,
+            huffmanBencode);
+
+        var data = new Blob([file]);
+        var r3 = document.getElementById("r3");
+        r3.href = URL.createObjectURL(data);
+        console.log("Done")
+        ctx.putImageData(imgData, 0, 0);
+    }
+    this.huffman_lzw = function () {
+        preview = this.getPreview();
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(preview, 0, 0, preview.width, preview.height);
+        var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+
+        var r = [];
+        var g = [];
+        var b = [];
+        for (var i = 0, j = 0; i < imgData.data.length; i += 4, j += 1) {
+            r[j] = (imgData.data[i]);
+            g[j] = (imgData.data[i + 1]);
+            b[j] = (imgData.data[i + 2]);
+        }
+
+        r_seq = this.lzw_encode(r)
+        g_seq = this.lzw_encode(g)
+        b_seq = this.lzw_encode(b)
+
+
+        var huffmanR = Huffman.treeFromImage(r_seq);
+        var huffmanG = Huffman.treeFromImage(g_seq);
+        var huffmanB = Huffman.treeFromImage(b_seq);
+        var huffmanRencode = huffmanR.encode(r_seq);
+        var huffmanGencode = huffmanG.encode(g_seq);
+        var huffmanBencode = huffmanB.encode(b_seq);
+        var huffmanRTreeEncode = huffmanR.encodeTree();
+        var huffmanGTreeEncode = huffmanG.encodeTree();
+        var huffmanBTreeEncode = huffmanB.encodeTree();
+
+        var file = Huffman.parseDataToUint8array(preview.width,
+            preview.height,
+            huffmanRTreeEncode,
+            huffmanGTreeEncode,
+            huffmanBTreeEncode,
+            huffmanRencode,
+            huffmanGencode,
+            huffmanBencode);
+
+
+        var data = new Blob([file]);
+        var a3 = document.getElementById("a3");
+        a3.href = URL.createObjectURL(data);
+        console.log("Done")
+
+        ctx.putImageData(imgData, 0, 0);
+    }
+
+    this.fileHuffmanLzw = function () {
+        file = document.getElementById("huffmanlzw").files[0]; //sames as here
+        var reader = new FileReader();
+        reader.readAsArrayBuffer(file); //reads the data as a txt
+        reader.onloadend = function () {
+
+            file = (reader.result);
+            uint = new Uint8Array(file);
+            var image = Huffman.parseUint8arrayToData(uint);
+
+
+            preview = document.createElement('img');
+            preview.width = image.width;
+            preview.height = image.height;
+
+            canvas.width = preview.width;
+            canvas.height = preview.height;
+            ctx = canvas.getContext('2d');
+            ctx.drawImage(preview, canvas.width, 0, canvas.width, canvas.height);
+            var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+
+            var huffmanR = Huffman.Tree.decodeTree(JSON.parse(image.huffmanRTree));
+            var huffmanG = Huffman.Tree.decodeTree(JSON.parse(image.huffmanGTree));
+            var huffmanB = Huffman.Tree.decodeTree(JSON.parse(image.huffmanBTree));
+            var huffmanRdecode = huffmanR.decode(image.huffmanREncode);
+            var huffmanGdecode = huffmanG.decode(image.huffmanGEncode);
+            var huffmanBdecode = huffmanB.decode(image.huffmanBEncode);
+
+            var lzwRdecode = this.lzw_decode(huffmanRdecode)
+            var lzwGdecode = this.lzw_decode(huffmanGdecode)
+            var lzwBdecode = this.lzw_decode(huffmanBdecode)
+
+
+            for (var i = 0, j = 0; i < imgData.data.length; i += 4, j += 1) {
+                imgData.data[i] = lzwRdecode[j];
+                imgData.data[i + 1] = lzwGdecode[j];
+                imgData.data[i + 2] = lzwBdecode[j];
+                imgData.data[i + 3] = 255;
+            }
+            console.log('done');
+            ctx.putImageData(imgData, 0, 0);
+        }
     }
 }
 

@@ -8,43 +8,43 @@ Run_length.prototype.encode = function(input) {
     var j =0;
     for (count = 1, prev = input[0], i = 1; i < input.length; i++) {
         if (input[i] != prev) {
-    //         uint[j]=String(count).length;
-    //         j++;
-    //         for(k in String(count)){
-    //             uint[j]=k;
-    //             j++;
-    //         }
-    //         uint[j]=String(prev).length;
-    //         j++;
-    //         for(k in String(prev)){
-    //             uint[j]=k;
-    //             j++;
-    //         }
-    //         count = 1;
-    //         prev = input[i];
-    //     }
-    //     else 
-    //         count ++;
-    // }            
-    // uint[j]=String(count).length;
-    // j++;
-    // for(k in String(count)){
-    //     uint[j]=k;
-    //     j++;
-    // }
-    // uint[j]=String(prev).length;
-    // j++;
-    // for(k in String(prev)){
-    //     uint[j]=k;
-    //     j++;
-    // }
+            //         uint[j]=String(count).length;
+            //         j++;
+            //         for(k in String(count)){
+            //             uint[j]=k;
+            //             j++;
+            //         }
+            //         uint[j]=String(prev).length;
+            //         j++;
+            //         for(k in String(prev)){
+            //             uint[j]=k;
+            //             j++;
+            //         }
+            //         count = 1;
+            //         prev = input[i];
+            //     }
+            //     else
+            //         count ++;
+            // }
+            // uint[j]=String(count).length;
+            // j++;
+            // for(k in String(count)){
+            //     uint[j]=k;
+            //     j++;
+            // }
+            // uint[j]=String(prev).length;
+            // j++;
+            // for(k in String(prev)){
+            //     uint[j]=k;
+            //     j++;
+            // }
 
-        encoding.push([count, prev]);
-        count = 1;
-        prev = input[i];
-    }
-    else 
-        count ++;
+            encoding.push([count, prev]);
+            count = 1;
+            prev = input[i];
+        }
+        else
+            count ++;
     }
     encoding.push([count, prev]);
     return encoding;

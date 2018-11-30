@@ -6,10 +6,9 @@
     <script src="./js/libs/jquey-3.2.1.slim.min.js" type="application/javascript"></script>
     <script src="./js/libs/popper.js" type="application/javascript"></script>
     <script src="./js/libs/bootstrap.min.js" type="application/javascript"></script>
-    <script src="./js/libs/waveletencoding.js" type="application/javascript"></script>
     <script src="./js/libs/predictivecoding.js" type="application/javascript"></script>
+    <script src="./js/libs/huffman.js" type="application/javascript"></script>
     <script src="./js/libs/run_length.js" type="application/javascript"></script>
-    <script src="./js/libs/lzw.js" type="application/javascript"></script>
     <script src="./js/libs/d3.js" type="application/javascript"></script>
     <script src="./js/libs/canvas_editor.js" type="application/javascript"></script>
     <script src="./js/libs/math.min.js" type="application/javascript"></script>
@@ -26,6 +25,7 @@
     <script src="./js/histogram.js" type="application/javascript"></script>
     <script src="./js/array.js" type="application/javascript"></script>
     <script src="./js/filters.js" type="application/javascript"></script>
+    <script src="./js/compressors.js" type="application/javascript"></script>
 
 
 </header>
@@ -260,6 +260,33 @@
                             </button>
                         </p>
 
+                        </p>
+                        <button class="btn btn-primary" onclick='photo.huffman()'>Huffman</button>
+                        <input id="huffman" class="btn btn-primary " type="file" onchange="(photo.fileHuffman())">
+                        <br> </p>
+                        <a id="a2" download="imagem.hr" type="octet/stream" charset='utf-8'>Download Huffman</a>
+                        </p>
+                        <button class="btn btn-primary" onclick='photo.lzw()'>LZW</button>
+                        </p>
+                        <a id="r4" download="imagem.hr" type="octet/stream" charset='utf-8'>Download LZW</a>
+                        </p>
+                        <button class="btn btn-primary" onclick='photo.run_length()'>Run-Length</button>
+                        </p>
+                        <input id="run_length" class="btn btn-primary " type="file" onchange="(photo.fileRun_Length())">
+                        <br> </p>
+                        <a id="r2" download="imagem.hr" type="octet/stream" charset='utf-8'>Download Run-Length</a>
+                        </p>
+                        <button class="btn btn-primary" onclick='photo.huffman_run_length()'>Huffman e Run-Length
+                        </button>
+                        </p>
+                        <a id="r3" download="imagem.hr" type="octet/stream" charset='utf-8'>Download Huffman and Run-Length</a>
+                        </p>
+                        <button class="btn btn-primary" onclick='photo.huffman_lzw()'>Huffman e LZW</button>
+                        <input id="huffmanlzw" class="btn btn-primary " type="file" onchange="(photo.fileHuffmanLzw())">
+                        <br> </p>
+                        <a id="a3" download="imagem.hr" type="octet/stream" charset='utf-8'>Download Huffman e LZW</a>
+                        </p>
+                        </p>
                         <div class="tab-pane" id="2">
                             <p>
                                 <button class="btn btn-primary" onclick='hist.histogram()'>Histograma</button>
