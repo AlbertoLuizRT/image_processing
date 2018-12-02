@@ -1343,11 +1343,11 @@ function PhotoShop() {
         return result;
     }
 
-    this.transformBack = function(vec){
+    this.transformBack = function (vec) {
         let result = [];
-        for (var i = 0; i < vec.length/2; i++) {
-            result[i*2] = vec[i] + vec[i+(vec.length/2)];
-            result[(i*2)+1] = vec[i] - vec[i+(vec.length/2)];
+        for (var i = 0; i < vec.length / 2; i++) {
+            result[i * 2] = vec[i] + vec[i + (vec.length / 2)];
+            result[(i * 2) + 1] = vec[i] - vec[i + (vec.length / 2)];
         }
         return result;
     }
@@ -1403,6 +1403,7 @@ function PhotoShop() {
                 }
             }
             this.setHaar(haar_matrix);
+
             let A = photo.toArray(haar_matrix, preview.height, preview.width)
             for (let i = 0; i < A.length; i++) {
                 imgData.data[i] = A[i]
@@ -1412,20 +1413,20 @@ function PhotoShop() {
     }
 
     this.haarTransBack = (level, actual) => {
-        actual = actual-1
+        actual = actual - 1
         preview = photo.getPreview();
         ctx = canvas.getContext('2d');
-        ctx.drawImage(preview, 0, 0,preview.width, preview.height );
+        ctx.drawImage(preview, 0, 0, preview.width, preview.height);
         var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
 
-        let haar_matrix = this.getHaar()
+        let haar_matrix = photo.toMatrix(imgData.data, preview.height, preview.width);
 
-        for(let i=actual; i>=level; i--) {
-            let dim = preview.height/Math.pow(2,i)
+        for (let i = actual; i >= level; i--) {
+            let dim = preview.height / Math.pow(2, i)
             let bk_matrix = photo.haarBackLevel(haar_matrix, dim)
-            for(let x=0; x<dim; x++) {
-                for(let y=0; y<dim; y++) {
-                    for(let k=0; k<3; k++) {
+            for (let x = 0; x < dim; x++) {
+                for (let y = 0; y < dim; y++) {
+                    for (let k = 0; k < 3; k++) {
                         haar_matrix[x][y][k] = bk_matrix[x][y][k]
                     }
                 }
@@ -1437,7 +1438,7 @@ function PhotoShop() {
             imgData.data[i] = A[i]
         }
 
-        ctx.putImageData(imgData,0,0);
+        ctx.putImageData(imgData, 0, 0);
     }
 
     this.haarBackLevel = (haar_matrix, dim) => {
@@ -1454,7 +1455,7 @@ function PhotoShop() {
             }
         }
 
-        for(let i=0; i<dim; i++) {
+        for (let i = 0; i < dim; i++) {
             let lineR = photo.transformBack(photo.getLineColor(hM, i, 0, dim))
             let lineG = photo.transformBack(photo.getLineColor(hM, i, 1, dim))
             let lineB = photo.transformBack(photo.getLineColor(hM, i, 2, dim))
@@ -1543,7 +1544,7 @@ function PhotoShop() {
         }
 
         for (var h = 0; h < quad; h++) {
-            for (var w = quad, j =0; w < matrix.length; w++, j++) {
+            for (var w = quad, j = 0; w < matrix.length; w++, j++) {
                 for (let k = 0; k < 3; k++) {
                     q3[h][j][k] = matrix[h][w][k];
                     sumq3 += Math.abs(matrix[h][w][k] - 127);
@@ -1620,7 +1621,11 @@ function PhotoShop() {
                 imgData.data[i + 2] = huffmanBdecode[j];
                 imgData.data[i + 3] = 255;
             }
+            console.log('decoding done');
             ctx.putImageData(imgData, 0, 0);
+            preview = document.createElement('img');
+            preview.src = canvas.toDataURL();
+            photo.set(preview);
         }
 
     }
@@ -1628,7 +1633,7 @@ function PhotoShop() {
         preview = this.getPreview();
 
         ctx = canvas.getContext('2d');
-        ctx.drawImage(preview, 0, 0, preview.width, preview.height);
+        //ctx.drawImage(preview, 0, 0, preview.width, preview.height);
         var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
         var r = [];
         var g = [];
@@ -1682,18 +1687,18 @@ function PhotoShop() {
         g_seq = this.lzw_encode(g)
         b_seq = this.lzw_encode(b)
         var string = "";
-        for(i in r_seq){
-            string+=String(i)
+        for (i in r_seq) {
+            string += String(i)
         }
-        for(i in g_seq){
-            string+=String(i)
+        for (i in g_seq) {
+            string += String(i)
         }
-        for(i in b_seq){
-            string+=String(i)
+        for (i in b_seq) {
+            string += String(i)
         }
         var uint = new Uint8Array(string.length);
         var index = 0;
-        for(i in string){
+        for (i in string) {
             uint[index] = i.charCodeAt(0);
             index++;
         }
@@ -1708,15 +1713,15 @@ function PhotoShop() {
     this.run_length = function () {
         preview = this.getPreview();
         ctx = canvas.getContext('2d');
-        ctx.drawImage(this.getPreview(), 0, 0,preview.width, preview.height );
-        var imgData=ctx.getImageData(0, 0, preview.width, preview.height);
+        //ctx.drawImage(this.getPreview(), 0, 0,preview.width, preview.height );
+        var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
         var r = [];
         var g = [];
         var b = [];
-        for(var i=0,j=0; i<imgData.data.length; i+=4,j+=1) {
+        for (var i = 0, j = 0; i < imgData.data.length; i += 4, j += 1) {
             r[j] = (imgData.data[i]);
-            g[j] = (imgData.data[i+1]);
-            b[j] = (imgData.data[i+2]);
+            g[j] = (imgData.data[i + 1]);
+            b[j] = (imgData.data[i + 2]);
         }
         var run_lengthR = run.encode(r);
         var run_lengthG = run.encode(g);
@@ -1725,59 +1730,59 @@ function PhotoShop() {
         var lengthG = String(run_lengthG.length);
         var lengthB = String(run_lengthB.length);
 
-        var uint = new Uint8Array(lengthR.length+
-            lengthG.length+
-            lengthB.length+
-            ( 2*run_lengthR.length)+(2*run_lengthG.length)+(2*run_lengthB.length));
+        var uint = new Uint8Array(lengthR.length +
+            lengthG.length +
+            lengthB.length +
+            (2 * run_lengthR.length) + (2 * run_lengthG.length) + (2 * run_lengthB.length));
         var indexuint = 0;
-        uint[indexuint]=lengthR.length;//.charCodeAt(j);
+        uint[indexuint] = lengthR.length;//.charCodeAt(j);
         indexuint++;
-        uint[indexuint]=lengthG.length;//.charCodeAt(j);
+        uint[indexuint] = lengthG.length;//.charCodeAt(j);
         indexuint++;
-        uint[indexuint]=lengthB.length;//.charCodeAt(j);
+        uint[indexuint] = lengthB.length;//.charCodeAt(j);
         indexuint++;
-        for(let j=0;j<lengthR.length;j++){
-            uint[indexuint]=lengthR[j];//.charCodeAt(j);
+        for (let j = 0; j < lengthR.length; j++) {
+            uint[indexuint] = lengthR[j];//.charCodeAt(j);
             indexuint++;
         }
-        for(let j=0;j<lengthG.length;j++){
-            uint[indexuint]=lengthG[j];//.charCodeAt(j);
+        for (let j = 0; j < lengthG.length; j++) {
+            uint[indexuint] = lengthG[j];//.charCodeAt(j);
             indexuint++;
         }
-        for(let j=0;j<lengthB.length;j++){
-            uint[indexuint]=lengthB[j];//.charCodeAt(j);
+        for (let j = 0; j < lengthB.length; j++) {
+            uint[indexuint] = lengthB[j];//.charCodeAt(j);
             indexuint++;
         }
 
-        for(let j=0;j<run_lengthR.length;j++){
-            uint[indexuint]=run_lengthR[j][0];//.charCodeAt(j);
+        for (let j = 0; j < run_lengthR.length; j++) {
+            uint[indexuint] = run_lengthR[j][0];//.charCodeAt(j);
             indexuint++;
-            uint[indexuint]=run_lengthR[j][1];//.charCodeAt(j);
-            indexuint++;
-        }
-        for(let j=0;j<run_lengthG.length;j++){
-            uint[indexuint]=run_lengthG[j][0];//.charCodeAt(j);
-            indexuint++;
-            uint[indexuint]=run_lengthG[j][1];//.charCodeAt(j);
+            uint[indexuint] = run_lengthR[j][1];//.charCodeAt(j);
             indexuint++;
         }
-        for(let j=0;j<run_lengthB.length;j++){
-            uint[indexuint]=run_lengthB[j][0];//.charCodeAt(j);
+        for (let j = 0; j < run_lengthG.length; j++) {
+            uint[indexuint] = run_lengthG[j][0];//.charCodeAt(j);
             indexuint++;
-            uint[indexuint]=run_lengthB[j][1];//.charCodeAt(j);
+            uint[indexuint] = run_lengthG[j][1];//.charCodeAt(j);
+            indexuint++;
+        }
+        for (let j = 0; j < run_lengthB.length; j++) {
+            uint[indexuint] = run_lengthB[j][0];//.charCodeAt(j);
+            indexuint++;
+            uint[indexuint] = run_lengthB[j][1];//.charCodeAt(j);
             indexuint++;
         }
 
-        uint[indexuint]=String(preview.width).length;//.charCodeAt(j);
+        uint[indexuint] = String(preview.width).length;//.charCodeAt(j);
         indexuint++;
-        uint[indexuint]=String(preview.height).length;//.charCodeAt(j);
+        uint[indexuint] = String(preview.height).length;//.charCodeAt(j);
         indexuint++;
-        for(let j=0;j<String(preview.width).length;j++){
-            uint[indexuint]=String(preview.width)[j];//.charCodeAt(j);
+        for (let j = 0; j < String(preview.width).length; j++) {
+            uint[indexuint] = String(preview.width)[j];//.charCodeAt(j);
             indexuint++;
         }
-        for(let j=0;j<String(preview.height).length;j++){
-            uint[indexuint]=String(preview.height)[j];//.charCodeAt(j);
+        for (let j = 0; j < String(preview.height).length; j++) {
+            uint[indexuint] = String(preview.height)[j];//.charCodeAt(j);
             indexuint++;
         }
         var file = uint;
@@ -1806,39 +1811,39 @@ function PhotoShop() {
             var lengthR = "";
             var lengthG = "";
             var lengthB = "";
-            for(let j=0;j<parseInt(lenR);j++){
-                lengthR+=uint[indexuint];
+            for (let j = 0; j < parseInt(lenR); j++) {
+                lengthR += uint[indexuint];
                 indexuint++;
             }
-            for(let j=0;j<parseInt(lenG);j++){
-                lengthG+=uint[indexuint];
+            for (let j = 0; j < parseInt(lenG); j++) {
+                lengthG += uint[indexuint];
                 indexuint++;
             }
-            for(let j=0;j<parseInt(lenB);j++){
-                lengthB+=uint[indexuint];
+            for (let j = 0; j < parseInt(lenB); j++) {
+                lengthB += uint[indexuint];
                 indexuint++;
             }
             var r_encode = [];
             var g_encode = [];
             var b_encode = [];
-            for(let j=0;j<parseInt(lengthR);j++){
-                let value =[];
+            for (let j = 0; j < parseInt(lengthR); j++) {
+                let value = [];
                 value.push(uint[indexuint]);
                 indexuint++;
                 value.push(uint[indexuint]);
                 indexuint++;
                 r_encode.push(value);
             }
-            for(let j=0;j<parseInt(lengthG);j++){
-                let value =[];
+            for (let j = 0; j < parseInt(lengthG); j++) {
+                let value = [];
                 value.push(uint[indexuint]);
                 indexuint++;
                 value.push(uint[indexuint]);
                 indexuint++;
                 g_encode.push(value);
             }
-            for(let j=0;j<parseInt(lengthB);j++){
-                let value =[];
+            for (let j = 0; j < parseInt(lengthB); j++) {
+                let value = [];
                 value.push(uint[indexuint]);
                 indexuint++;
                 value.push(uint[indexuint]);
@@ -1856,18 +1861,18 @@ function PhotoShop() {
             indexuint++;
             var lenHeight = uint[indexuint];//.charCodeAt(j);
             indexuint++;
-            var width ="";
-            var height ="";
-            for(let j=0;j<parseInt(lenWidth);j++){
-                width+= uint[indexuint]
+            var width = "";
+            var height = "";
+            for (let j = 0; j < parseInt(lenWidth); j++) {
+                width += uint[indexuint]
                 indexuint++;
             }
-            for(let j=0;j<parseInt(lenHeight);j++){
-                height+= uint[indexuint]
+            for (let j = 0; j < parseInt(lenHeight); j++) {
+                height += uint[indexuint]
                 indexuint++;
             }
-            image.width=parseInt(width)
-            image.height=parseInt(height)
+            image.width = parseInt(width)
+            image.height = parseInt(height)
 
 
             preview = document.createElement('img');
@@ -1960,20 +1965,20 @@ function PhotoShop() {
             if (dict[next_code]) {
                 seq.push(dict[next_code])
                 let word = dict[code]
-                let next_char = (dict[next_code]).substring(0,3)
+                let next_char = (dict[next_code]).substring(0, 3)
                 dict[next_id++] = word + next_char
             } else {
                 let word = dict[code]
-                let next_char = (dict[code]).substring(0,3)
+                let next_char = (dict[code]).substring(0, 3)
                 seq.push(word + next_char)
                 dict[next_id++] = word + next_char
             }
         }
 
         let sequencia = new Array()
-        for(let i=0; i<seq.length; i++){
-            for(let j=0; j<seq[i].length; j+=3){
-                sequencia.push(parseInt(seq[i].substring(j, j+3)))
+        for (let i = 0; i < seq.length; i++) {
+            for (let j = 0; j < seq[i].length; j += 3) {
+                sequencia.push(parseInt(seq[i].substring(j, j + 3)))
             }
         }
 
@@ -1983,7 +1988,7 @@ function PhotoShop() {
     this.huffman_run_length = function () {
         preview = this.getPreview();
         ctx = canvas.getContext('2d');
-        ctx.drawImage(this.getPreview(), 0, 0, preview.width, preview.height);
+        //ctx.drawImage(this.getPreview(), 0, 0, preview.width, preview.height);
         var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
 
         var r = [];
@@ -2076,7 +2081,7 @@ function PhotoShop() {
         console.log("Done")
 
         ctx.putImageData(imgData, 0, 0);
-    }
+    };
 
     this.fileHuffmanLzw = function () {
         file = document.getElementById("huffmanlzw").files[0]; //sames as here
@@ -2120,7 +2125,7 @@ function PhotoShop() {
             console.log('done');
             ctx.putImageData(imgData, 0, 0);
         }
-    }
+    };
 }
 
 let photo = new PhotoShop();
