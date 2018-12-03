@@ -2152,7 +2152,6 @@ function PhotoShop() {
             for (var i = 1; i < preview.height - 1; i++) {
                 for (var j = 1; j < preview.width - 1; j++) {
                     var r = 0, g = 0, b = 0, value = 0;
-                    // var relativePosChoose = (((i+1-1) * preview.width) + (j+1-1)) * 4;
                     for (var x = 0; x < radius * 2; x++) {
                         for (var y = 0; y < radius * 2; y++) {
                             var relativePos = (((i + x - radius) * preview.width) + (j + y - radius)) * 4;
@@ -2163,17 +2162,8 @@ function PhotoShop() {
                                 value++;
                             }
                             if (x == 1 && y == 1) {
-                                var relativePosChoose = relativePos;// (((i+x-1) * preview.width) + (j+y-1)) * 4;
-                                // var relativePosr = (((i-1) * preview.width) + (j-1)) * 4;
+                                var relativePosChoose = relativePos;
                             }
-                            // if(imgData.data[relativePos]<imgData.data[relativePosChoose]){
-                            //     imgData.data[relativePosChoose]=imgData.data[relativePos];
-                            // }
-                            // if(imgData.data[relativePos+1]<imgData.data[relativePosChoose+1]){
-                            //     imgData.data[relativePosChoose+1]=imgData.data[relativePos+1];
-                            // }if(imgData.data[relativePos+2]<imgData.data[relativePosChoose+2]){
-                            //     imgData.data[relativePosChoose+2]=imgData.data[relativePos+2];
-                            // }
 
                         }
                     }
@@ -2211,7 +2201,7 @@ function PhotoShop() {
             auxData[i + 1] = imgData.data[i + 1];
             auxData[i + 2] = imgData.data[i + 2];
         }
-        console.log(level)
+        console.log(level);
         for (let k = 0; k < level; k++) {
             for (var i = 0; i < imgData.data.length; i += 4) {
                 imgData.data[i] = auxData[i];
@@ -2221,7 +2211,6 @@ function PhotoShop() {
             for (var i = 1; i < preview.height - 1; i++) {
                 for (var j = 1; j < preview.width - 1; j++) {
                     var r = 255, g = 255, b = 255, value = 0;
-                    // var relativePosChoose = (((i+1-1) * preview.width) + (j+1-1)) * 4;
                     for (var x = 0; x < radius * 2; x++) {
                         for (var y = 0; y < radius * 2; y++) {
                             var relativePos = (((i + x - radius) * preview.width) + (j + y - radius)) * 4;
@@ -2232,26 +2221,17 @@ function PhotoShop() {
                                 value++;
                             }
                             if (x == 1 && y == 1) {
-                                var relativePosChoose = relativePos;// (((i+x-1) * preview.width) + (j+y-1)) * 4;
-                                // var relativePosr = (((i-1) * preview.width) + (j-1)) * 4;
+                                var relativePosChoose = relativePos;
+
                             }
-                            // if(imgData.data[relativePos]<imgData.data[relativePosChoose]){
-                            //     imgData.data[relativePosChoose]=imgData.data[relativePos];
-                            // }
-                            // if(imgData.data[relativePos+1]<imgData.data[relativePosChoose+1]){
-                            //     imgData.data[relativePosChoose+1]=imgData.data[relativePos+1];
-                            // }if(imgData.data[relativePos+2]<imgData.data[relativePosChoose+2]){
-                            //     imgData.data[relativePosChoose+2]=imgData.data[relativePos+2];
-                            // }
-
                         }
-                    }
-                    if (value > 0) {
-                        auxData[relativePosChoose] = r;
-                        auxData[relativePosChoose + 1] = g;
-                        auxData[relativePosChoose + 2] = b;
-                    }
+                        if (value > 0) {
+                            auxData[relativePosChoose] = r;
+                            auxData[relativePosChoose + 1] = g;
+                            auxData[relativePosChoose + 2] = b;
+                        }
 
+                    }
                 }
             }
         }
@@ -2266,21 +2246,21 @@ function PhotoShop() {
         return imgData;
     };
 
-    this.mgradient = function (gradient, radius) {
-        preview = photo.getPreview();
-        ctx = canvas.getContext('2d');
-        ctx.drawImage(preview, 0, 0, preview.width, preview.height);
-        var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
-        var dilation = photo.dilation(gradient, radius);
-        var erosion = photo.erosion(gradient, radius);
-        for (var i = 0; i < imgData.data.length; i++) {
-            if (dilation.data[i] != erosion.data[i]) {
-                imgData.data[i] = dilation.data[i] - erosion.data[i];
+        this.mgradient = function (gradient, radius) {
+            preview = photo.getPreview();
+            ctx = canvas.getContext('2d');
+            ctx.drawImage(preview, 0, 0, preview.width, preview.height);
+            var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+            var dilation = photo.dilation(gradient, radius);
+            var erosion = photo.erosion(gradient, radius);
+            for (var i = 0; i < imgData.data.length; i++) {
+                if (dilation.data[i] != erosion.data[i]) {
+                    imgData.data[i] = dilation.data[i] - erosion.data[i];
+                }
+
             }
-
+            ctx.putImageData(imgData, 0, 0);
         }
-        ctx.putImageData(imgData, 0, 0);
     }
-}
 
-let photo = new PhotoShop();
+    let photo = new PhotoShop();
