@@ -260,6 +260,31 @@
                             </button>
                         </p>
 
+                        <p>
+                            <input id="ErosionLevel" type="text" size=20 placeholder="Nível de Erosão">
+                            <input id="ErosionRadius" type="text" size=20 placeholder="Raio de Erosão">
+                            <button class="btn btn-primary"
+                                    onclick='photo.erosion(document.getElementById("ErosionLevel").value,
+                                    document.getElementById("ErosionRadius").value)'>Erosão
+                            </button>
+                        </p>
+                        <p>
+                            <input id="DilatationLevel" type="text" size=20 placeholder="Nível de Dilatação">
+                            <input id="DilatationRadius" type="text" size=20 placeholder="Raio de Dilataçã0">
+                            <button class="btn btn-primary"
+                                    onclick='photo.dilation(document.getElementById("DilatationLevel").value,
+                                    document.getElementById("DilatationRadius").value)'>Dilatação
+                            </button>
+                        </p>
+                        <p>
+                            <input id="mGradientLevel" type="text" size=20 placeholder="Nível de Gradiente Morfológico">
+                            <input id="mGradientRadius" type="text" size=20 placeholder="Raio de Gradiente Morfológico">
+                            <button class="btn btn-primary"
+                                    onclick='photo.mgradient(document.getElementById("mGradientLevel").value,
+                                    document.getElementById("mGradientRadius").value)'>Gradiente Morfológico
+                            </button>
+                        </p>
+
                         </p>
                         <button class="btn btn-primary" onclick='photo.huffman()'>Huffman</button>
                         <input id="huffman" class="btn btn-primary " type="file" onchange="(photo.fileHuffman())">
