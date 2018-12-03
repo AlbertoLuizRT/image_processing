@@ -2225,15 +2225,16 @@ function PhotoShop() {
 
                             }
                         }
-                        if (value > 0) {
-                            auxData[relativePosChoose] = r;
-                            auxData[relativePosChoose + 1] = g;
-                            auxData[relativePosChoose + 2] = b;
-                        }
-
                     }
+                    if (value > 0) {
+                        auxData[relativePosChoose] = r;
+                        auxData[relativePosChoose + 1] = g;
+                        auxData[relativePosChoose + 2] = b;
+                    }
+
                 }
             }
+
         }
         for (var i = 0; i < imgData.data.length; i += 4) {
             imgData.data[i] = auxData[i];
@@ -2246,21 +2247,21 @@ function PhotoShop() {
         return imgData;
     };
 
-        this.mgradient = function (gradient, radius) {
-            preview = photo.getPreview();
-            ctx = canvas.getContext('2d');
-            ctx.drawImage(preview, 0, 0, preview.width, preview.height);
-            var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
-            var dilation = photo.dilation(gradient, radius);
-            var erosion = photo.erosion(gradient, radius);
-            for (var i = 0; i < imgData.data.length; i++) {
-                if (dilation.data[i] != erosion.data[i]) {
-                    imgData.data[i] = dilation.data[i] - erosion.data[i];
-                }
-
+    this.mgradient = function (gradient, radius) {
+        preview = photo.getPreview();
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(preview, 0, 0, preview.width, preview.height);
+        var imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+        var dilation = photo.dilation(gradient, radius);
+        var erosion = photo.erosion(gradient, radius);
+        for (var i = 0; i < imgData.data.length; i++) {
+            if (dilation.data[i] != erosion.data[i]) {
+                imgData.data[i] = dilation.data[i] - erosion.data[i];
             }
-            ctx.putImageData(imgData, 0, 0);
-        }
-    }
 
-    let photo = new PhotoShop();
+        }
+        ctx.putImageData(imgData, 0, 0);
+    }
+}
+
+let photo = new PhotoShop();
