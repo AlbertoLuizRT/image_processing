@@ -2035,6 +2035,7 @@ function PhotoShop() {
         console.log("Done")
         ctx.putImageData(imgData, 0, 0);
     }
+
     this.huffman_lzw = function () {
         preview = this.getPreview();
         ctx = canvas.getContext('2d');
@@ -2260,6 +2261,56 @@ function PhotoShop() {
             }
 
         }
+        ctx.putImageData(imgData, 0, 0);
+    }
+
+    this.derivative_mn2 = function () {
+        preview = photo.getPreview();
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(preview, 0, 0, preview.width, preview.height);
+        let imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+
+        for (var i = 0; i < imgData.data.length; i++) {
+            if (i === 0) {
+                imgData.data[i] = imgData.data[i+1] - imgData.data[i]
+            }
+            if (i === imgData.data.length - 1) {
+                imgData.data[i] = imgData.data[i] - imgData[i-1]
+            }
+            else {
+                imgData.data[i] = (imgData.data[i+1] - imgData.data[i-1])/2
+            }
+
+        }
+
+        ctx.putImageData(imgData, 0, 0);
+    }
+
+    this.derivativeColor_mn2 = function () {
+        preview = photo.getPreview();
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(preview, 0, 0, preview.width, preview.height);
+        let imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+
+        for (var i = 0; i < imgData.data.length; i += 4) {
+            if (i === 0) {
+                imgData.data[i] = imgData.data[i+4] - imgData.data[i]
+                imgData.data[i+1] = imgData.data[i+5] - imgData.data[i]
+                imgData.data[i+2] = imgData.data[i+6] - imgData.data[i]
+            }
+            if (i === imgData.data.length - 1) {
+                imgData.data[i] = imgData.data[i] - imgData[i-4]
+                imgData.data[i +1] = imgData.data[i] - imgData[i-5]
+                imgData.data[i+2] = imgData.data[i] - imgData[i-6]
+            }
+            else {
+                imgData.data[i] = (imgData.data[i+4] - imgData.data[i-4])/2
+                imgData.data[i+1] = (imgData.data[i+5] - imgData.data[i-5])/2
+                imgData.data[i+2] = (imgData.data[i+6] - imgData.data[i-6])/2
+            }
+
+        }
+
         ctx.putImageData(imgData, 0, 0);
     }
 }
