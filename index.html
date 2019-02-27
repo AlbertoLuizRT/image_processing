@@ -311,8 +311,10 @@
                         <br> </p>
                         <a id="a3" download="huffmanLZW.hr" type="octet/stream" charset='utf-8'>Download Huffman e LZW</a>
                         </p>
-                        <button class="btn btn-primary" onclick='photo.derivative_mn2()'>Aproximação de Derivadas</button>
-                        <button class="btn btn-primary" onclick='photo.derivativeColor_mn2()'>Derivadas com Cor</button>
+                        <input id="threshold2" type="text" size=40 placeholder="Threshold [0,255]">
+                        <button class="btn btn-primary"
+                                onclick='photo.derivative_mn2(document.getElementById("threshold2").value)'>Limiarização
+                        </button>
                         </p>
                         </p>
                         <div class="tab-pane" id="2">

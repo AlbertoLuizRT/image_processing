@@ -1332,6 +1332,8 @@ function PhotoShop() {
         }
 
         ctx.putImageData(imgData, 0, 0);
+
+        return imgData;
     }
 
     this.transformH = (vec) => {
@@ -2264,11 +2266,12 @@ function PhotoShop() {
         ctx.putImageData(imgData, 0, 0);
     }
 
-    this.derivative_mn2 = function () {
+    this.derivative_mn2 = function (threshold) {
+        photo.threshold(threshold);
         preview = photo.getPreview();
         ctx = canvas.getContext('2d');
         ctx.drawImage(preview, 0, 0, preview.width, preview.height);
-        let imgData = ctx.getImageData(0, 0, preview.width, preview.height);
+        let imgData = photo.threshold(threshold);
 
         for (var i = 0; i < imgData.data.length; i++) {
             if (i === 0) {
@@ -2280,7 +2283,6 @@ function PhotoShop() {
             else {
                 imgData.data[i] = (imgData.data[i+1] - imgData.data[i-1])/2
             }
-
         }
 
         ctx.putImageData(imgData, 0, 0);
